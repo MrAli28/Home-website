@@ -39,13 +39,17 @@ const Header = () => {
 
           {/* Desktop Auth Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" className="flex items-center">
-              <LogIn className="h-4 w-4 mr-2" />
-              Login
+            <Button variant="ghost" className="flex items-center" asChild>
+              <Link to="/auth">
+                <LogIn className="h-4 w-4 mr-2" />
+                Login
+              </Link>
             </Button>
-            <Button className="bg-homefix-600 hover:bg-homefix-700">
-              <UserPlus className="h-4 w-4 mr-2" />
-              Sign Up
+            <Button className="bg-homefix-600 hover:bg-homefix-700" asChild>
+              <Link to="/auth?tab=signup">
+                <UserPlus className="h-4 w-4 mr-2" />
+                Sign Up
+              </Link>
             </Button>
           </div>
 
@@ -92,17 +96,21 @@ const Header = () => {
               <Button 
                 variant="outline" 
                 className="w-full justify-center"
-                onClick={() => setIsMenuOpen(false)}
+                asChild
               >
-                <LogIn className="h-4 w-4 mr-2" />
-                Login
+                <Link to="/auth" onClick={() => setIsMenuOpen(false)}>
+                  <LogIn className="h-4 w-4 mr-2" />
+                  Login
+                </Link>
               </Button>
               <Button 
                 className="w-full justify-center bg-homefix-600 hover:bg-homefix-700"
-                onClick={() => setIsMenuOpen(false)}
+                asChild
               >
-                <UserPlus className="h-4 w-4 mr-2" />
-                Sign Up
+                <Link to="/auth?tab=signup" onClick={() => setIsMenuOpen(false)}>
+                  <UserPlus className="h-4 w-4 mr-2" />
+                  Sign Up
+                </Link>
               </Button>
             </div>
           </div>

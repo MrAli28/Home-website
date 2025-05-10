@@ -1,6 +1,6 @@
-
-import { AirVent, PaintRoller, Hammer, Truck } from "lucide-react";
+import { AirVent, PaintRoller, Hammer, Truck, Cat } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 interface ServiceCardProps {
   title: string;
@@ -43,6 +43,11 @@ const ServicesSection = () => {
       description: "Reliable moving and delivery services with professional handling of your belongings.",
       icon: <Truck className="h-8 w-8" />,
     },
+    {
+      title: "Pet Services",
+      description: "Professional pet care including grooming, walking, sitting, and other pet-related services.",
+      icon: <Cat className="h-8 w-8" />,
+    },
   ];
 
   return (
@@ -67,7 +72,9 @@ const ServicesSection = () => {
         </div>
         
         <div className="text-center mt-12">
-          <Button className="bg-homefix-600 hover:bg-homefix-700">View All Services</Button>
+          <Button className="bg-homefix-600 hover:bg-homefix-700" asChild>
+            <Link to="/services">View All Services</Link>
+          </Button>
         </div>
       </div>
     </section>

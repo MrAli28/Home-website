@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -65,7 +64,7 @@ const Contact = () => {
                       <Phone className="h-6 w-6 mr-4 mt-1" />
                       <div>
                         <h3 className="font-semibold text-lg">Phone</h3>
-                        <p className="text-homefix-100">+44 20 7946 0958</p>
+                        <p className="text-homefix-100">+923061642273</p>
                         <p className="text-xs text-homefix-200 mt-1">Mon-Fri, 9am-6pm</p>
                       </div>
                     </div>
@@ -74,7 +73,7 @@ const Contact = () => {
                       <Mail className="h-6 w-6 mr-4 mt-1" />
                       <div>
                         <h3 className="font-semibold text-lg">Email</h3>
-                        <p className="text-homefix-100">support@homefixuk.co.uk</p>
+                        <p className="text-homefix-100">huss132336@gmail.com</p>
                         <p className="text-xs text-homefix-200 mt-1">We'll respond within 24 hours</p>
                       </div>
                     </div>
@@ -83,8 +82,8 @@ const Contact = () => {
                       <MapPin className="h-6 w-6 mr-4 mt-1" />
                       <div>
                         <h3 className="font-semibold text-lg">Office</h3>
-                        <p className="text-homefix-100">123 Service Road, London</p>
-                        <p className="text-homefix-100">UK EC1A 1BB</p>
+                        <p className="text-homefix-100">shuja town sahiwal</p>
+                        <p className="text-homefix-100">Pakistan</p>
                       </div>
                     </div>
                   </div>

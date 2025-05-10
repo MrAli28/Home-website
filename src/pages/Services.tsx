@@ -1,8 +1,7 @@
-
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { AirVent, PaintRoller, Hammer, Truck } from "lucide-react";
+import { AirVent, PaintRoller, Hammer, Truck, Cat } from "lucide-react";
 
 const Services = () => {
   const services = [
@@ -10,6 +9,7 @@ const Services = () => {
       id: "ac-repair",
       title: "AC Repair & Maintenance",
       icon: <AirVent className="h-10 w-10" />,
+      image: "/images/Ac.jpg",
       description: "Professional AC repair, maintenance and installation services for your home or office.",
       features: [
         "AC troubleshooting and repairs",
@@ -22,6 +22,7 @@ const Services = () => {
       id: "painting",
       title: "Painting Services",
       icon: <PaintRoller className="h-10 w-10" />,
+      image: "/images/Painting.jpg",
       description: "Transform your space with our professional painting services for interior and exterior walls.",
       features: [
         "Interior wall painting",
@@ -34,6 +35,7 @@ const Services = () => {
       id: "carpentry",
       title: "Carpentry Work",
       icon: <Hammer className="h-10 w-10" />,
+      image: "/images/Carpenter.jpg",
       description: "Custom carpentry solutions from furniture assembly to custom-made cabinets and repairs.",
       features: [
         "Furniture assembly and repair",
@@ -46,12 +48,26 @@ const Services = () => {
       id: "moving",
       title: "Moving & Delivery",
       icon: <Truck className="h-10 w-10" />,
+      image: "/images/moving.jpg",
       description: "Reliable moving and delivery services with professional handling of your belongings.",
       features: [
         "Local and long-distance moving",
         "Furniture and appliance delivery",
         "Packing and unpacking services",
         "Storage solutions"
+      ]
+    },
+    {
+      id: "pet-services",
+      title: "Pet Services",
+      icon: <Cat className="h-10 w-10" />,
+      image: "/images/pets.jpg",
+      description: "Professional pet care including grooming, walking, sitting, and other pet-related services.",
+      features: [
+        "Pet grooming and bathing",
+        "Dog walking services",
+        "Pet sitting and boarding",
+        "Pet training and behavioral assistance"
       ]
     },
   ];
@@ -78,8 +94,12 @@ const Services = () => {
                   <div className="bg-white rounded-xl shadow-md overflow-hidden">
                     <div className="md:flex">
                       <div className="md:w-1/3 bg-homefix-50 p-8 flex flex-col items-center justify-center">
-                        <div className="bg-white rounded-full p-5 shadow-md text-homefix-600 mb-4">
-                          {service.icon}
+                        <div className="bg-white rounded-xl overflow-hidden shadow-md mb-6 w-full max-w-md">
+                          <img 
+                            src={service.image} 
+                            alt={service.title} 
+                            className="w-full h-auto object-cover" 
+                          />
                         </div>
                         <h2 className="text-2xl font-bold text-center">{service.title}</h2>
                       </div>
@@ -96,8 +116,10 @@ const Services = () => {
                             </li>
                           ))}
                         </ul>
-                        <Button className="bg-homefix-600 hover:bg-homefix-700">
-                          Book this Service
+                        <Button className="bg-homefix-600 hover:bg-homefix-700" asChild>
+                          <a href={`/book?service=${service.id}`}>
+                            Book this Service
+                          </a>
                         </Button>
                       </div>
                     </div>

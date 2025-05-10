@@ -1,6 +1,7 @@
 
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
@@ -17,12 +18,16 @@ const HeroSection = () => {
               Quality professionals available across the UK, just a click away.
             </p>
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
-              <Button size="lg" className="bg-homefix-500 hover:bg-homefix-600 text-white border-none font-semibold px-8">
-                Book a Service
-                <ArrowRight className="ml-2 h-5 w-5" />
+              <Button size="lg" className="bg-homefix-500 hover:bg-homefix-600 text-white border-none font-semibold px-8" asChild>
+                <Link to="/book">
+                  Book a Service
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
-                Explore Services
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10" asChild>
+                <Link to="/services">
+                  Explore Services
+                </Link>
               </Button>
             </div>
           </div>
@@ -37,14 +42,16 @@ const HeroSection = () => {
                   <select
                     id="service"
                     className="w-full px-4 py-3 bg-white/20 border border-gray-300/30 rounded-md text-white focus:ring-homefix-400 focus:border-homefix-400"
+                    defaultValue="ac-repair"
                   >
-                    <option value="" disabled selected className="text-gray-800">Select a service</option>
+                    <option value="" disabled className="text-gray-800">Select a service</option>
                     <option value="ac-repair" className="text-gray-800">AC Repair</option>
                     <option value="painting" className="text-gray-800">Painting</option>
                     <option value="carpentry" className="text-gray-800">Carpentry</option>
                     <option value="cleaning" className="text-gray-800">Cleaning</option>
                     <option value="ceiling" className="text-gray-800">Ceiling Work</option>
                     <option value="moving" className="text-gray-800">Moving & Delivery</option>
+                    <option value="pet-services" className="text-gray-800">Pet Services</option>
                   </select>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -55,8 +62,9 @@ const HeroSection = () => {
                     <select
                       id="location"
                       className="w-full px-4 py-3 bg-white/20 border border-gray-300/30 rounded-md text-white focus:ring-homefix-400 focus:border-homefix-400"
+                      defaultValue="london"
                     >
-                      <option value="" disabled selected className="text-gray-800">Select city</option>
+                      <option value="" disabled className="text-gray-800">Select city</option>
                       <option value="london" className="text-gray-800">London</option>
                       <option value="manchester" className="text-gray-800">Manchester</option>
                       <option value="birmingham" className="text-gray-800">Birmingham</option>
@@ -75,8 +83,10 @@ const HeroSection = () => {
                     />
                   </div>
                 </div>
-                <Button className="w-full bg-homefix-500 hover:bg-homefix-600 text-white py-3 font-semibold">
-                  Check Availability
+                <Button className="w-full bg-homefix-500 hover:bg-homefix-600 text-white py-3 font-semibold" asChild>
+                  <Link to="/book">
+                    Check Availability
+                  </Link>
                 </Button>
               </form>
             </div>
