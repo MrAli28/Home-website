@@ -1,0 +1,283 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - HomeFix{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-lg-3 mb-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Dashboard</h5>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a href="#bookings" class="list-group-item list-group-item-action active" data-bs-toggle="list">
+                        <i class="fas fa-calendar-alt me-2"></i>My Bookings
+                    </a>
+                    <a href="#profile" class="list-group-item list-group-item-action" data-bs-toggle="list">
+                        <i class="fas fa-user me-2"></i>Profile
+                    </a>
+                    <a href="#settings" class="list-group-item list-group-item-action" data-bs-toggle="list">
+                        <i class="fas fa-cog me-2"></i>Settings
+                    </a>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'book' %}" class="btn btn-primary w-100">
+                        <i class="fas fa-plus me-2"></i>New Booking
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-lg-9">
+            <div class="tab-content">
+                <!-- Bookings Tab -->
+                <div class="tab-pane fade show active" id="bookings">
+                    <div class="card">
+                        <div class="card-header">
+                            <ul class="nav nav-tabs card-header-tabs" id="bookingTabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="upcoming-tab" data-bs-toggle="tab" data-bs-target="#upcoming" type="button" role="tab">
+                                        Upcoming Bookings
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="past-tab" data-bs-toggle="tab" data-bs-target="#past" type="button" role="tab">
+                                        Past Bookings
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content" id="bookingTabsContent">
+                                <!-- Upcoming Bookings -->
+                                <div class="tab-pane fade show active" id="upcoming" role="tabpanel">
+                                    {% if upcoming_bookings %}
+                                        {% for booking in upcoming_bookings %}
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <h5 class="card-title">{{ booking.service.name }}</h5>
+                                                        <p class="card-text">
+                                                            <strong>Date:</strong> {{ booking.date|date:"F j, Y" }}<br>
+                                                            <strong>Time:</strong> {{ booking.time|time:"g:i A" }}<br>
+                                                            <strong>Address:</strong> {{ booking.address }}, {{ booking.postcode }}<br>
+                                                            <strong>Status:</strong> 
+                                                            <span class="badge {% if booking.status == 'confirmed' %}bg-success{% else %}bg-warning{% endif %}">
+                                                                {{ booking.status|title }}
+                                                            </span>
+                                                        </p>
+                                                        {% if booking.notes %}
+                                                        <p class="card-text"><strong>Notes:</strong> {{ booking.notes }}</p>
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="col-md-4 text-md-end">
+                                                        <p class="card-text">
+                                                            <strong>Price:</strong> £{{ booking.price|default:"TBD" }}
+                                                        </p>
+                                                        <a href="{% url 'cancel_booking' booking.id %}" class="btn btn-outline-danger">
+                                                            <i class="fas fa-times me-1"></i>Cancel
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <div class="text-center py-4">
+                                            <i class="fas fa-calendar-alt fa-3x text-muted mb-3"></i>
+                                            <p class="lead">You don't have any upcoming bookings.</p>
+                                            <a href="{% url 'services' %}" class="btn btn-primary">Browse Services</a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <!-- Past Bookings -->
+                                <div class="tab-pane fade" id="past" role="tabpanel">
+                                    {% if past_bookings %}
+                                        {% for booking in past_bookings %}
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <h5 class="card-title">{{ booking.service.name }}</h5>
+                                                        <p class="card-text">
+                                                            <strong>Date:</strong> {{ booking.date|date:"F j, Y" }}<br>
+                                                            <strong>Time:</strong> {{ booking.time|time:"g:i A" }}<br>
+                                                            <strong>Address:</strong> {{ booking.address }}, {{ booking.postcode }}<br>
+                                                            <strong>Status:</strong> 
+                                                            <span class="badge {% if booking.status == 'completed' %}bg-success{% else %}bg-danger{% endif %}">
+                                                                {{ booking.status|title }}
+                                                            </span>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-4 text-md-end">
+                                                        <p class="card-text">
+                                                            <strong>Price:</strong> £{{ booking.price }}
+                                                        </p>
+                                                        {% if booking.status == 'completed' and not booking.rating %}
+                                                        <a href="{% url 'rate_booking' booking.id %}" class="btn btn-outline-primary">
+                                                            <i class="fas fa-star me-1"></i>Leave Review
+                                                        </a>
+                                                        {% elif booking.rating %}
+                                                        <div class="text-warning">
+                                                            {% for i in "12345"|make_list %}
+                                                                {% if forloop.counter <= booking.rating %}
+                                                                <i class="fas fa-star"></i>
+                                                                {% else %}
+                                                                <i class="far fa-star"></i>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </div>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <div class="text-center py-4">
+                                            <i class="fas fa-history fa-3x text-muted mb-3"></i>
+                                            <p class="lead">You don't have any past bookings.</p>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Profile Tab -->
+                <div class="tab-pane fade" id="profile">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Personal Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" action="{% url 'profile' %}">
+                                {% csrf_token %}
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="first_name" class="form-label">First Name</label>
+                                        <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="last_name" class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Update Profile</button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h5 class="mb-0">Become a Service Provider</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Would you like to offer your services on HomeFix?</p>
+                            <a href="{% url 'become_provider' %}" class="btn btn-outline-primary">Apply Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Settings Tab -->
+                <div class="tab-pane fade" id="settings">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Account Settings</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-4">
+                                <h6>Password</h6>
+                                <p class="text-muted">Change your account password</p>
+                                <a href="{% url 'password_reset' %}" class="btn btn-outline-primary">Change Password</a>
+                            </div>
+                            <hr>
+                            <div class="mb-4">
+                                <h6>Notifications</h6>
+                                <p class="text-muted">Manage your notification preferences</p>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="emailNotifications" checked>
+                                    <label class="form-check-label" for="emailNotifications">Email Notifications</label>
+                                </div>
+                                <div class="form-check form-switch mt-2">
+                                    <input class="form-check-input" type="checkbox" id="smsNotifications">
+                                    <label class="form-check-label" for="smsNotifications">SMS Notifications</label>
+                                </div>
+                            </div>
+                            <hr>
+                            <div>
+                                <h6>Delete Account</h6>
+                                <p class="text-muted">Permanently delete your account and all data</p>
+                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
+                                    Delete Account
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Account Modal -->
+<div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Account Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete your account? This action cannot be undone and all your data will be permanently removed.</p>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="confirmDelete">
+                    <label class="form-check-label" for="confirmDelete">
+                        I understand that this action is permanent
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="deleteAccountBtn" disabled>Delete Account</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Enable/disable delete account button based on checkbox
+    document.addEventListener('DOMContentLoaded', function() {
+        const confirmDeleteCheckbox = document.getElementById('confirmDelete');
+        const deleteAccountBtn = document.getElementById('deleteAccountBtn');
+        
+        if (confirmDeleteCheckbox && deleteAccountBtn) {
+            confirmDeleteCheckbox.addEventListener('change', function() {
+                deleteAccountBtn.disabled = !this.checked;
+            });
+        }
+        
+        // Handle tab navigation from URL hash
+        const hash = window.location.hash;
+        if (hash) {
+            const triggerEl = document.querySelector(`.list-group-item[href="${hash}"]`);
+            if (triggerEl) {
+                const tab = new bootstrap.Tab(triggerEl);
+                tab.show();
+            }
+        }
+    });
+</script>
+{% endblock %}

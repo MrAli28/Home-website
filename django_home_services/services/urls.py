@@ -1,0 +1,48 @@
+from django.urls import path
+from django.contrib.auth import views as auth_views
+from . import views
+
+urlpatterns = [
+    # Main pages
+    path('', views.home, name='home'),
+    path('about/', views.about, name='about'),
+    
+    # Services
+    path('services/', views.services_list, name='services'),
+    path('services/<int:service_id>/', views.service_detail, name='service_detail'),
+    
+    # Providers
+    path('providers/', views.providers_list, name='providers'),
+    path('providers/<int:provider_id>/', views.provider_detail, name='provider_detail'),
+    path('become-provider/', views.become_provider, name='become_provider'),
+    
+    # Booking
+    path('book/', views.book_service, name='book'),
+    path('book/<int:service_id>/', views.book_service, name='book_service'),
+    path('bookings/cancel/<int:booking_id>/', views.cancel_booking, name='cancel_booking'),
+    path('bookings/rate/<int:booking_id>/', views.rate_booking, name='rate_booking'),
+    
+    # User account
+    path('dashboard/', views.dashboard, name='dashboard'),
+    path('profile/', views.profile, name='profile'),
+    path('register/', views.register, name='register'),
+    path('login/', auth_views.LoginView.as_view(template_name='services/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    
+    # Password reset
+    path('password-reset/', 
+         auth_views.PasswordResetView.as_view(template_name='services/password_reset.html'), 
+         name='password_reset'),
+    path('password-reset/done/', 
+         auth_views.PasswordResetDoneView.as_view(template_name='services/password_reset_done.html'), 
+         name='password_reset_done'),
+    path('password-reset-confirm/<uidb64>/<token>/', 
+         auth_views.PasswordResetConfirmView.as_view(template_name='services/password_reset_confirm.html'), 
+         name='password_reset_confirm'),
+    path('password-reset-complete/', 
+         auth_views.PasswordResetCompleteView.as_view(template_name='services/password_reset_complete.html'), 
+         name='password_reset_complete'),
+    
+    # AJAX endpoints
+    path('check-postcode/', views.check_postcode, name='check_postcode'),
+]

@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{% block title %}HomeFix - Professional Home Services{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Hero Section -->
+    <section class="py-5 text-center">
+        <div class="row py-lg-5">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <h1 class="fw-bold">Professional Home Services</h1>
+                <p class="lead text-muted">
+                    Find trusted professionals for all your home service needs.
+                    From plumbing and electrical work to cleaning and gardening.
+                </p>
+                <div class="d-flex justify-content-center gap-2">
+                    <a href="{% url 'services' %}" class="btn btn-primary btn-lg px-4">Browse Services</a>
+                    <a href="{% url 'providers' %}" class="btn btn-outline-secondary btn-lg px-4">Find Providers</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="py-4 bg-light rounded">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <h2 class="text-center mb-4">Find a Service</h2>
+                    <form action="{% url 'services' %}" method="get" class="row g-3">
+                        <div class="col-md-5">
+                            <select name="service" class="form-select form-select-lg">
+                                <option value="">Select a service</option>
+                                {% for service in services %}
+                                <option value="{{ service.id }}">{{ service.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" name="postcode" class="form-control form-control-lg" placeholder="Enter your postcode">
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary btn-lg w-100">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="py-5">
+        <h2 class="text-center mb-4">Our Services</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for service in services %}
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <div class="text-center mb-3">
+                            <i class="fas fa-{{ service.icon }} fa-3x text-primary"></i>
+                        </div>
+                        <h5 class="card-title text-center">{{ service.name }}</h5>
+                        <p class="card-text">{{ service.description }}</p>
+                        <p class="text-center text-muted">Starting from £{{ service.base_price }}</p>
+                    </div>
+                    <div class="card-footer bg-transparent border-0 text-center">
+                        <a href="{% url 'service_detail' service.id %}" class="btn btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="py-5 bg-light rounded">
+        <h2 class="text-center mb-5">How It Works</h2>
+        <div class="row g-4">
+            <div class="col-md-4 text-center">
+                <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 80px; height: 80px;">
+                    <i class="fas fa-search fa-2x"></i>
+                </div>
+                <h4>1. Find a Service</h4>
+                <p>Browse our range of professional home services or search for a specific service you need.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 80px; height: 80px;">
+                    <i class="fas fa-calendar-alt fa-2x"></i>
+                </div>
+                <h4>2. Book an Appointment</h4>
+                <p>Choose a convenient date and time for your service appointment.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 80px; height: 80px;">
+                    <i class="fas fa-check-circle fa-2x"></i>
+                </div>
+                <h4>3. Get the Job Done</h4>
+                <p>Our professional service provider will arrive and complete the job to your satisfaction.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-5">
+        <h2 class="text-center mb-4">What Our Customers Say</h2>
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-center mb-3">
+                            <div class="text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="card-text">"Excellent service! The plumber arrived on time and fixed our leaking pipe quickly. Very professional and friendly."</p>
+                        <div class="text-end">
+                            <p class="mb-0 fw-bold">- Sarah Johnson</p>
+                            <small class="text-muted">London</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-center mb-3">
+                            <div class="text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="card-text">"I've used HomeFix for electrical work and gardening. Both times the service was outstanding. Will definitely use again!"</p>
+                        <div class="text-end">
+                            <p class="mb-0 fw-bold">- Michael Brown</p>
+                            <small class="text-muted">Manchester</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-center mb-3">
+                            <div class="text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="card-text">"The cleaning service was thorough and efficient. My house hasn't been this clean in ages! Booking was easy and straightforward."</p>
+                        <div class="text-end">
+                            <p class="mb-0 fw-bold">- Emma Wilson</p>
+                            <small class="text-muted">Birmingham</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
