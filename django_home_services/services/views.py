@@ -33,15 +33,10 @@ def service_detail(request, service_id):
         'providers': providers,
     })
 
-def providers_list(request):
-    """Providers listing page"""
-    service_id = request.GET.get('service')
-    if service_id:
-        service = get_object_or_404(Service, id=service_id)
-        providers = Provider.objects.filter(service_types=service)
-    else:
-        providers = Provider.objects.all()
-    return render(request, 'services/providers.html', {'providers': providers})
+def contact(request):
+    """Contact page view"""
+    services = Service.objects.all()  # Pass services for the dropdown in contact form
+    return render(request, 'services/contact.html', {'services': services})
 
 def provider_detail(request, provider_id):
     """Provider detail page"""
