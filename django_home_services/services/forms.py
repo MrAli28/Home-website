@@ -23,17 +23,17 @@ class UserProfileForm(forms.ModelForm):
 
 class BookingForm(forms.ModelForm):
     """Form for creating a service booking"""
-    date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
-    time = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}))
+    date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), required=True)
+    time = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}), required=True)
     phone_number = forms.CharField(max_length=20, required=True)
     email = forms.EmailField(required=True)
+    address = forms.CharField(max_length=255, required=True)
+    postcode = forms.CharField(max_length=20, required=True)
+    notes = forms.CharField(widget=forms.Textarea(attrs={'rows': 3}), required=True)
     
     class Meta:
         model = Booking
         fields = ['service', 'date', 'time', 'phone_number', 'email', 'address', 'postcode', 'notes']
-        widgets = {
-            'notes': forms.Textarea(attrs={'rows': 3}),
-        }
 
 class ProviderRegistrationForm(forms.ModelForm):
     """Form for registering as a service provider"""

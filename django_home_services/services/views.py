@@ -67,8 +67,9 @@ def book_service(request, service_id=None):
                 if not booking.email and request.user.email:
                     booking.email = request.user.email
             booking.save()
-            messages.success(request, 'Booking created successfully! We will contact you soon.')
-            return redirect('home')
+            # Store booking ID in session for the success page
+            request.session['booking_id'] = booking.id
+            return redirect('booking_success')
     else:
         initial_data = {}
         if service:
@@ -82,6 +83,17 @@ def book_service(request, service_id=None):
         'form': form,
         'service': service,
         'services': services,
+    })
+
+def booking_success(request):
+    """Booking success page"""
+    booking_id = request.session.get('booking_id')
+    booking = None
+    if booking_id:
+        booking = get_object_or_404(Booking, id=booking_id)
+    
+    return render(request, 'services/booking_success.html', {
+        'booking': booking
     })
 
 @login_required
