@@ -25,10 +25,12 @@ class BookingForm(forms.ModelForm):
     """Form for creating a service booking"""
     date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
     time = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}))
+    phone_number = forms.CharField(max_length=20, required=True)
+    email = forms.EmailField(required=True)
     
     class Meta:
         model = Booking
-        fields = ['service', 'date', 'time', 'address', 'postcode', 'notes']
+        fields = ['service', 'date', 'time', 'phone_number', 'email', 'address', 'postcode', 'notes']
         widgets = {
             'notes': forms.Textarea(attrs={'rows': 3}),
         }

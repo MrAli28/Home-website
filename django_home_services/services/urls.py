@@ -17,7 +17,7 @@ urlpatterns = [
     path('become-provider/', views.become_provider, name='become_provider'),
     
     # Booking
-    path('book/', views.book_service, name='book'),
+    path('book/', views.book_service, name='book_service'),
     path('book/<int:service_id>/', views.book_service, name='book_service'),
     path('bookings/cancel/<int:booking_id>/', views.cancel_booking, name='cancel_booking'),
     path('bookings/rate/<int:booking_id>/', views.rate_booking, name='rate_booking'),

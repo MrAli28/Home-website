@@ -47,30 +47,41 @@ def provider_detail(request, provider_id):
         'reviews': reviews,
     })
 
-@login_required
 def book_service(request, service_id=None):
     """Booking form page"""
     service = None
     if service_id:
         service = get_object_or_404(Service, id=service_id)
     
+    # Get all services for the dropdown
+    services = Service.objects.all()
+    
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
             booking = form.save(commit=False)
-            booking.customer = request.user
+            # Associate with user if logged in
+            if request.user.is_authenticated:
+                booking.customer = request.user
+                # Pre-fill email from user account if not provided
+                if not booking.email and request.user.email:
+                    booking.email = request.user.email
             booking.save()
-            messages.success(request, 'Booking created successfully!')
-            return redirect('dashboard')
+            messages.success(request, 'Booking created successfully! We will contact you soon.')
+            return redirect('home')
     else:
         initial_data = {}
         if service:
             initial_data['service'] = service
+        # Pre-fill email from user account if logged in
+        if request.user.is_authenticated and request.user.email:
+            initial_data['email'] = request.user.email
         form = BookingForm(initial=initial_data)
     
     return render(request, 'services/book.html', {
         'form': form,
         'service': service,
+        'services': services,
     })
 
 @login_required
