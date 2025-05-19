@@ -100,14 +100,26 @@ def booking_success(request):
 def dashboard(request):
     """User dashboard view"""
     user = request.user
-    bookings = Booking.objects.filter(customer=user)
-    upcoming_bookings = bookings.filter(status__in=['pending', 'confirmed'])
-    past_bookings = bookings.filter(status__in=['completed', 'cancelled'])
+    
+    # Admin can see all bookings, regular users only see their own
+    if user.is_staff or user.is_superuser:
+        # Admin view - show all bookings
+        bookings = Booking.objects.all().order_by('-created_at')
+        upcoming_bookings = bookings.filter(status__in=['pending', 'confirmed'])
+        past_bookings = bookings.filter(status__in=['completed', 'cancelled'])
+        is_admin = True
+    else:
+        # Regular user view - show only their bookings
+        bookings = Booking.objects.filter(customer=user).order_by('-created_at')
+        upcoming_bookings = bookings.filter(status__in=['pending', 'confirmed'])
+        past_bookings = bookings.filter(status__in=['completed', 'cancelled'])
+        is_admin = False
     
     return render(request, 'services/dashboard.html', {
         'user': user,
         'upcoming_bookings': upcoming_bookings,
         'past_bookings': past_bookings,
+        'is_admin': is_admin,
     })
 
 @login_required

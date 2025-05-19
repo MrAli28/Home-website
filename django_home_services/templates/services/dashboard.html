@@ -3,27 +3,29 @@
 {% block title %}Dashboard - HomeFix{% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container py-4">
     <div class="row">
         <!-- Sidebar -->
         <div class="col-lg-3 mb-4">
             <div class="card">
                 <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">Dashboard</h5>
+                    <h5 class="mb-0">{% if is_admin %}Admin Dashboard{% else %}My Dashboard{% endif %}</h5>
                 </div>
                 <div class="list-group list-group-flush">
                     <a href="#bookings" class="list-group-item list-group-item-action active" data-bs-toggle="list">
-                        <i class="fas fa-calendar-alt me-2"></i>My Bookings
+                        {% if is_admin %}<i class="fas fa-calendar-alt me-2"></i>All Bookings{% else %}<i class="fas fa-calendar-alt me-2"></i>My Bookings{% endif %}
                     </a>
                     <a href="#profile" class="list-group-item list-group-item-action" data-bs-toggle="list">
                         <i class="fas fa-user me-2"></i>Profile
                     </a>
+                    {% if is_admin %}
                     <a href="#settings" class="list-group-item list-group-item-action" data-bs-toggle="list">
-                        <i class="fas fa-cog me-2"></i>Settings
+                        <i class="fas fa-cog me-2"></i>Admin Settings
                     </a>
+                    {% endif %}
                 </div>
                 <div class="card-footer">
-                    <a href="{% url 'book' %}" class="btn btn-primary w-100">
+                    <a href="{% url 'book_service' %}" class="btn btn-primary w-100">
                         <i class="fas fa-plus me-2"></i>New Booking
                     </a>
                 </div>
@@ -37,6 +39,9 @@
                 <div class="tab-pane fade show active" id="bookings">
                     <div class="card">
                         <div class="card-header">
+                            {% if is_admin %}
+                            <h5 class="mb-0">All Customer Bookings</h5>
+                            {% else %}
                             <ul class="nav nav-tabs card-header-tabs" id="bookingTabs" role="tablist">
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link active" id="upcoming-tab" data-bs-toggle="tab" data-bs-target="#upcoming" type="button" role="tab">
@@ -49,8 +54,105 @@
                                     </button>
                                 </li>
                             </ul>
+                            {% endif %}
                         </div>
                         <div class="card-body">
+                            {% if is_admin %}
+                            <!-- Admin View - All Bookings -->
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Customer</th>
+                                            <th>Service</th>
+                                            <th>Date & Time</th>
+                                            <th>Contact</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for booking in upcoming_bookings %}
+                                        <tr>
+                                            <td>#{{ booking.id }}</td>
+                                            <td>
+                                                {% if booking.customer %}
+                                                    {{ booking.customer.get_full_name|default:booking.customer.username|default:"Guest" }}
+                                                {% else %}
+                                                    Guest
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ booking.service.name }}</td>
+                                            <td>{{ booking.date|date:"M d, Y" }} at {{ booking.time|time:"g:i A" }}</td>
+                                            <td>
+                                                {{ booking.phone_number }}<br>
+                                                {{ booking.email }}
+                                            </td>
+                                            <td>
+                                                <span class="badge {% if booking.status == 'confirmed' %}bg-success{% elif booking.status == 'pending' %}bg-warning{% elif booking.status == 'cancelled' %}bg-danger{% else %}bg-secondary{% endif %}">
+                                                    {{ booking.status|title }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <div class="btn-group btn-group-sm">
+                                                    <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bookingDetails{{ booking.id }}">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <a href="#" class="btn btn-outline-success">
+                                                        <i class="fas fa-check"></i>
+                                                    </a>
+                                                    <a href="#" class="btn btn-outline-danger">
+                                                        <i class="fas fa-times"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                        
+                                        {% for booking in past_bookings %}
+                                        <tr class="table-light">
+                                            <td>#{{ booking.id }}</td>
+                                            <td>
+                                                {% if booking.customer %}
+                                                    {{ booking.customer.get_full_name|default:booking.customer.username|default:"Guest" }}
+                                                {% else %}
+                                                    Guest
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ booking.service.name }}</td>
+                                            <td>{{ booking.date|date:"M d, Y" }} at {{ booking.time|time:"g:i A" }}</td>
+                                            <td>
+                                                {{ booking.phone_number }}<br>
+                                                {{ booking.email }}
+                                            </td>
+                                            <td>
+                                                <span class="badge {% if booking.status == 'completed' %}bg-success{% else %}bg-secondary{% endif %}">
+                                                    {{ booking.status|title }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <div class="btn-group btn-group-sm">
+                                                    <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bookingDetails{{ booking.id }}">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            {% if not upcoming_bookings and not past_bookings %}
+                            <div class="text-center py-4">
+                                <i class="fas fa-calendar-alt fa-3x text-muted mb-3"></i>
+                                <p class="lead">There are no bookings in the system yet.</p>
+                            </div>
+                            {% endif %}
+                            
+                            {% else %}
+                            <!-- Regular User View -->
                             <div class="tab-content" id="bookingTabsContent">
                                 <!-- Upcoming Bookings -->
                                 <div class="tab-pane fade show active" id="upcoming" role="tabpanel">
@@ -116,22 +218,12 @@
                                                     </div>
                                                     <div class="col-md-4 text-md-end">
                                                         <p class="card-text">
-                                                            <strong>Price:</strong> £{{ booking.price }}
+                                                            <strong>Price:</strong> £{{ booking.price|default:"N/A" }}
                                                         </p>
                                                         {% if booking.status == 'completed' and not booking.rating %}
                                                         <a href="{% url 'rate_booking' booking.id %}" class="btn btn-outline-primary">
-                                                            <i class="fas fa-star me-1"></i>Leave Review
+                                                            <i class="fas fa-star me-1"></i>Rate Service
                                                         </a>
-                                                        {% elif booking.rating %}
-                                                        <div class="text-warning">
-                                                            {% for i in "12345"|make_list %}
-                                                                {% if forloop.counter <= booking.rating %}
-                                                                <i class="fas fa-star"></i>
-                                                                {% else %}
-                                                                <i class="far fa-star"></i>
-                                                                {% endif %}
-                                                            {% endfor %}
-                                                        </div>
                                                         {% endif %}
                                                     </div>
                                                 </div>
@@ -146,6 +238,7 @@
                                     {% endif %}
                                 </div>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -154,130 +247,130 @@
                 <div class="tab-pane fade" id="profile">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="mb-0">Personal Information</h5>
+                            <h5 class="mb-0">My Profile</h5>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{% url 'profile' %}">
-                                {% csrf_token %}
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label for="first_name" class="form-label">First Name</label>
-                                        <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}">
+                            <div class="row">
+                                <div class="col-md-4 text-center mb-4 mb-md-0">
+                                    <div class="avatar-circle mx-auto mb-3">
+                                        <span class="initials">{{ user.first_name.0|default:user.username.0|upper }}</span>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label for="last_name" class="form-label">Last Name</label>
-                                        <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}">
+                                    <h5>{{ user.get_full_name|default:user.username }}</h5>
+                                    <p class="text-muted">Member since {{ user.date_joined|date:"F Y" }}</p>
+                                </div>
+                                <div class="col-md-8">
+                                    <h6>Account Information</h6>
+                                    <hr>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-4">
+                                            <p class="text-muted mb-0">Username:</p>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <p class="mb-0">{{ user.username }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-4">
+                                            <p class="text-muted mb-0">Email:</p>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <p class="mb-0">{{ user.email }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-4">
+                                            <p class="text-muted mb-0">Full Name:</p>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <p class="mb-0">{{ user.get_full_name|default:"Not provided" }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4">
+                                        <a href="{% url 'profile' %}" class="btn btn-primary">Edit Profile</a>
                                     </div>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">Email Address</label>
-                                    <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Update Profile</button>
-                            </form>
-                        </div>
-                    </div>
-                    
-                    <div class="card mt-4">
-                        <div class="card-header">
-                            <h5 class="mb-0">Become a Service Provider</h5>
-                        </div>
-                        <div class="card-body">
-                            <p>Would you like to offer your services on HomeFix?</p>
-                            <a href="{% url 'become_provider' %}" class="btn btn-outline-primary">Apply Now</a>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Settings Tab -->
+                {% if is_admin %}
+                <!-- Admin Settings Tab -->
                 <div class="tab-pane fade" id="settings">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="mb-0">Account Settings</h5>
+                            <h5 class="mb-0">Admin Settings</h5>
                         </div>
                         <div class="card-body">
-                            <div class="mb-4">
-                                <h6>Password</h6>
-                                <p class="text-muted">Change your account password</p>
-                                <a href="{% url 'password_reset' %}" class="btn btn-outline-primary">Change Password</a>
-                            </div>
-                            <hr>
-                            <div class="mb-4">
-                                <h6>Notifications</h6>
-                                <p class="text-muted">Manage your notification preferences</p>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="emailNotifications" checked>
-                                    <label class="form-check-label" for="emailNotifications">Email Notifications</label>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <i class="fas fa-users text-primary me-2"></i>User Management
+                                            </h5>
+                                            <p class="card-text">Manage user accounts, permissions, and roles.</p>
+                                            <a href="/admin/auth/user/" class="btn btn-sm btn-outline-primary">Manage Users</a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-check form-switch mt-2">
-                                    <input class="form-check-input" type="checkbox" id="smsNotifications">
-                                    <label class="form-check-label" for="smsNotifications">SMS Notifications</label>
+                                <div class="col-md-6 mb-4">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <i class="fas fa-tools text-primary me-2"></i>Service Management
+                                            </h5>
+                                            <p class="card-text">Add, edit, or remove services offered on the platform.</p>
+                                            <a href="/admin/services/service/" class="btn btn-sm btn-outline-primary">Manage Services</a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <hr>
-                            <div>
-                                <h6>Delete Account</h6>
-                                <p class="text-muted">Permanently delete your account and all data</p>
-                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
-                                    Delete Account
-                                </button>
+                                <div class="col-md-6 mb-4">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <i class="fas fa-calendar-alt text-primary me-2"></i>Booking Management
+                                            </h5>
+                                            <p class="card-text">View and manage all customer bookings.</p>
+                                            <a href="/admin/services/booking/" class="btn btn-sm btn-outline-primary">Manage Bookings</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <i class="fas fa-cog text-primary me-2"></i>Site Settings
+                                            </h5>
+                                            <p class="card-text">Configure website settings and preferences.</p>
+                                            <a href="/admin/" class="btn btn-sm btn-outline-primary">Admin Panel</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>
 </div>
 
-<!-- Delete Account Modal -->
-<div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Confirm Account Deletion</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete your account? This action cannot be undone and all your data will be permanently removed.</p>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="confirmDelete">
-                    <label class="form-check-label" for="confirmDelete">
-                        I understand that this action is permanent
-                    </label>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" id="deleteAccountBtn" disabled>Delete Account</button>
-            </div>
-        </div>
-    </div>
-</div>
-{% endblock %}
-
-{% block extra_js %}
-<script>
-    // Enable/disable delete account button based on checkbox
-    document.addEventListener('DOMContentLoaded', function() {
-        const confirmDeleteCheckbox = document.getElementById('confirmDelete');
-        const deleteAccountBtn = document.getElementById('deleteAccountBtn');
-        
-        if (confirmDeleteCheckbox && deleteAccountBtn) {
-            confirmDeleteCheckbox.addEventListener('change', function() {
-                deleteAccountBtn.disabled = !this.checked;
-            });
-        }
-        
-        // Handle tab navigation from URL hash
-        const hash = window.location.hash;
-        if (hash) {
-            const triggerEl = document.querySelector(`.list-group-item[href="${hash}"]`);
-            if (triggerEl) {
-                const tab = new bootstrap.Tab(triggerEl);
-                tab.show();
-            }
-        }
-    });
-</script>
+<style>
+    .avatar-circle {
+        width: 100px;
+        height: 100px;
+        background-color: #004080;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .initials {
+        font-size: 40px;
+        color: white;
+        font-weight: bold;
+    }
+</style>
 {% endblock %}
