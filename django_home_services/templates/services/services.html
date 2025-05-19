@@ -1,31 +1,226 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}Our Services{% endblock %}
+{% block title %}Our Services - Home Services{% endblock %}
 
 {% block content %}
-<div class="container py-5">
-    <h1 class="mb-4 text-center">Our Services</h1>
-    
-    <div class="row">
-        {% for service in services %}
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="bg-primary rounded-circle p-3 me-3">
-                            <i class="bi bi-{{ service.icon }} text-white"></i>
-                        </div>
-                        <h5 class="card-title mb-0">{{ service.name }}</h5>
-                    </div>
-                    <p class="card-text">{{ service.description }}</p>
-                    <p class="text-primary fw-bold">Starting from £{{ service.base_price }}</p>
-                </div>
-                <div class="card-footer bg-white border-top-0">
-                    <a href="{% url 'book_service' service.id %}" class="btn btn-primary w-100">Book Service</a>
+<!-- Hero Section with Blue Background -->
+<section class="bg-primary text-white py-5 mb-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h1 class="display-4 fw-bold mb-4">Our Services</h1>
+                <p class="lead mb-0">Professional home services delivered by trained experts. Explore our range of services and book online today.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<div class="container py-4">
+    <!-- Building Works -->
+    <div class="card border-0 shadow-sm rounded mb-5">
+        <div class="row g-0">
+            <div class="col-md-4 bg-light">
+                <img src="{% static 'images/carpenter.jpeg' %}" class="img-fluid rounded-start h-100 object-fit-cover" alt="Building works services">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body p-4">
+                    <h2 class="card-title fw-bold mb-3">Building Works</h2>
+                    <p class="card-text">Professional building and renovation services for your home. We handle everything from small renovations to complete house transformations.</p>
+                    
+                    <h5 class="mt-4 mb-3">What we offer:</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Loft conversions</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> House extensions</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Complete house renovations</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Structural alterations</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary mt-3">Request Quote</a>
                 </div>
             </div>
         </div>
-        {% endfor %}
+    </div>
+
+    <!-- Interior Finishing -->
+    <div class="card border-0 shadow-sm rounded mb-5">
+        <div class="row g-0">
+            <div class="col-md-4 bg-light">
+                <img src="{% static 'images/painting.jpeg' %}" class="img-fluid rounded-start h-100 object-fit-cover" alt="Interior finishing services">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body p-4">
+                    <h2 class="card-title fw-bold mb-3">Interior Finishing</h2>
+                    <p class="card-text">Transform the look and feel of your home with our professional interior finishing services. We provide high-quality craftsmanship for all interior work.</p>
+                    
+                    <h5 class="mt-4 mb-3">What we offer:</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Professional painting services</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Wallpaper installation</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Plastering and drywall</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Ceiling repairs and installation</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary mt-3">Request Quote</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bathroom & Flooring -->
+    <div class="card border-0 shadow-sm rounded mb-5">
+        <div class="row g-0">
+            <div class="col-md-4 bg-light">
+                <img src="{% static 'images/bathroom&tilling.jpeg' %}" class="img-fluid rounded-start h-100 object-fit-cover" alt="Bathroom and tiling services">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body p-4">
+                    <h2 class="card-title fw-bold mb-3">Bathroom & Flooring</h2>
+                    <p class="card-text">Upgrade your bathroom and flooring with our expert installation services. We provide complete solutions from design to installation.</p>
+                    
+                    <h5 class="mt-4 mb-3">What we offer:</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Complete bathroom installation</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Tiling and waterproofing</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Flooring installation (hardwood, laminate, vinyl, tile)</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Underfloor heating systems</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary mt-3">Request Quote</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Maintenance -->
+    <div class="card border-0 shadow-sm rounded mb-5">
+        <div class="row g-0">
+            <div class="col-md-4 bg-light">
+                <img src="{% static 'images/maintenence.jpeg' %}" class="img-fluid rounded-start h-100 object-fit-cover" alt="Maintenance services">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body p-4">
+                    <h2 class="card-title fw-bold mb-3">Maintenance</h2>
+                    <p class="card-text">Keep your home in perfect condition with our comprehensive maintenance services. We handle all aspects of home repairs and maintenance.</p>
+                    
+                    <h5 class="mt-4 mb-3">What we offer:</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Electrical repairs and installations</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Plumbing repairs and fixtures</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Roof work and repairs</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> General property maintenance</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary mt-3">Request Quote</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- House Renovation -->
+    <div class="card border-0 shadow-sm rounded mb-5">
+        <div class="row g-0">
+            <div class="col-md-4 bg-light">
+                <img src="{% static 'images/house_re.jpeg' %}" class="img-fluid rounded-start h-100 object-fit-cover" alt="House renovation services">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body p-4">
+                    <h2 class="card-title fw-bold mb-3">House Renovation</h2>
+                    <p class="card-text">Complete house renovation services to transform your property. We handle everything from concept to completion.</p>
+                    
+                    <h5 class="mt-4 mb-3">What we offer:</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Full house refurbishment</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Kitchen remodeling</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Space reconfiguration</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Interior and exterior renovations</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary mt-3">Request Quote</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Flooring -->
+    <div class="card border-0 shadow-sm rounded mb-5">
+        <div class="row g-0">
+            <div class="col-md-4 bg-light">
+                <img src="{% static 'images/flooring.jpeg' %}" class="img-fluid rounded-start h-100 object-fit-cover" alt="Flooring services">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body p-4">
+                    <h2 class="card-title fw-bold mb-3">Flooring Services</h2>
+                    <p class="card-text">Transform your home with our expert flooring installation services. We work with all types of flooring materials to suit your style and budget.</p>
+                    
+                    <h5 class="mt-4 mb-3">What we offer:</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Hardwood flooring</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Laminate flooring</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Vinyl and tile flooring</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Floor repairs and maintenance</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary mt-3">Request Quote</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Electrical Services -->
+    <div class="card border-0 shadow-sm rounded mb-5">
+        <div class="row g-0">
+            <div class="col-md-4 bg-light">
+                <img src="{% static 'images/electrician.jpeg' %}" class="img-fluid rounded-start h-100 object-fit-cover" alt="Electrical services">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body p-4">
+                    <h2 class="card-title fw-bold mb-3">Electrical Services</h2>
+                    <p class="card-text">Professional electrical services for your home or business. Our qualified electricians ensure safe and reliable electrical installations and repairs.</p>
+                    
+                    <h5 class="mt-4 mb-3">What we offer:</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Electrical installations</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Fault finding and repairs</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Lighting installation</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Electrical safety inspections</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary mt-3">Request Quote</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Roof Work & Repairs -->
+    <div class="card border-0 shadow-sm rounded mb-5">
+        <div class="row g-0">
+            <div class="col-md-4 bg-light">
+                <img src="{% static 'images/roofwork&repair.jpeg' %}" class="img-fluid rounded-start h-100 object-fit-cover" alt="Roof work and repair services">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body p-4">
+                    <h2 class="card-title fw-bold mb-3">Roof Work & Repairs</h2>
+                    <p class="card-text">Expert roof maintenance and repair services to protect your home from the elements. We handle all types of roofing work with precision and care.</p>
+                    
+                    <h5 class="mt-4 mb-3">What we offer:</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Roof leak repairs</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Tile and slate replacement</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Gutter cleaning and repair</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Chimney repairs</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary mt-3">Request Quote</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+<!-- Call to Action -->
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="mb-4">Ready to start your project?</h2>
+                <p class="lead mb-4">Contact us today for a free consultation and quote on your home improvement project.</p>
+                <a href="#contact" class="btn btn-primary btn-lg">Get in Touch</a>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

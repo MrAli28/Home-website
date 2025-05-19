@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Home Services - Professional Property Maintenance{% endblock %}
 
@@ -186,96 +187,211 @@
     <section class="py-5 bg-light rounded">
         <h2 class="text-center mb-5">Our Specializations</h2>
 
-        <div class="row row-cols-1 row-cols-md-6 g-4">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
             <div class="col">
                 <div class="card h-100 border-0 shadow-sm">
+                    <img src="{% static 'images/carpenter.jpeg' %}" class="card-img-top" alt="Building Works" style="height: 200px; object-fit: cover;">
                     <div class="card-body text-center">
-                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 80px; height: 80px;">
-                            <i class="fas fa-home fa-2x"></i>
-                        </div>
                         <h4 class="mb-3">Building Works</h4>
                         <ul class="list-unstyled text-start">
                             <li><i class="fas fa-check text-primary me-2"></i> Loft conversions</li>
                             <li><i class="fas fa-check text-primary me-2"></i> Extensions</li>
                         </ul>
+                        <a href="{% url 'services' %}" class="btn btn-outline-primary mt-3">Learn More</a>
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card h-100 border-0 shadow-sm">
+                    <img src="{% static 'images/painting.jpeg' %}" class="card-img-top" alt="Interior Finishing" style="height: 200px; object-fit: cover;">
                     <div class="card-body text-center">
-                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 80px; height: 80px;">
-                            <i class="fas fa-paint-roller fa-2x"></i>
-                        </div>
                         <h4 class="mb-3">Interior Finishing</h4>
                         <ul class="list-unstyled text-start">
                             <li><i class="fas fa-check text-primary me-2"></i> Painting</li>
                             <li><i class="fas fa-check text-primary me-2"></i> Wallpaper</li>
                             <li><i class="fas fa-check text-primary me-2"></i> Plastering</li>
                         </ul>
+                        <a href="{% url 'services' %}" class="btn btn-outline-primary mt-3">Learn More</a>
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card h-100 border-0 shadow-sm">
+                    <img src="{% static 'images/bathroom&tilling.jpeg' %}" class="card-img-top" alt="Bathroom & Tiling" style="height: 200px; object-fit: cover;">
                     <div class="card-body text-center">
-                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 80px; height: 80px;">
-                            <i class="fas fa-toilet fa-2x"></i>
-                        </div>
                         <h4 class="mb-3">Bathroom & Tiling</h4>
                         <ul class="list-unstyled text-start">
                             <li><i class="fas fa-check text-primary me-2"></i> Bathroom installation</li>
                             <li><i class="fas fa-check text-primary me-2"></i> Tiling fittings</li>
                         </ul>
+                        <a href="{% url 'services' %}" class="btn btn-outline-primary mt-3">Learn More</a>
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card h-100 border-0 shadow-sm">
+                    <img src="{% static 'images/maintenence.jpeg' %}" class="card-img-top" alt="Maintenance" style="height: 200px; object-fit: cover;">
                     <div class="card-body text-center">
-                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 80px; height: 80px;">
-                            <i class="fas fa-tools fa-2x"></i>
-                        </div>
                         <h4 class="mb-3">Maintenance</h4>
                         <ul class="list-unstyled text-start">
                             <li><i class="fas fa-check text-primary me-2"></i> Electrical work</li>
                             <li><i class="fas fa-check text-primary me-2"></i> Plumbing</li>
                             <li><i class="fas fa-check text-primary me-2"></i> Roof work & repairs</li>
                         </ul>
+                        <a href="{% url 'services' %}" class="btn btn-outline-primary mt-3">Learn More</a>
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card h-100 border-0 shadow-sm">
+                    <img src="{% static 'images/house_re.jpeg' %}" class="card-img-top" alt="House Renovation" style="height: 200px; object-fit: cover;">
                     <div class="card-body text-center">
-                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 80px; height: 80px;">
-                            <i class="fas fa-city fa-2x"></i>
-                        </div>
                         <h4 class="mb-3">House Renovation</h4>
                         <ul class="list-unstyled text-start">
                             <li><i class="fas fa-check text-primary me-2"></i> House renovation</li>
                         </ul>
+                        <a href="{% url 'services' %}" class="btn btn-outline-primary mt-3">Learn More</a>
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card h-100 border-0 shadow-sm">
+                    <img src="{% static 'images/flooring.jpeg' %}" class="card-img-top" alt="Flooring" style="height: 200px; object-fit: cover;">
                     <div class="card-body text-center">
-                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 80px; height: 80px;">
-                            <i class="fas fa-th-large fa-2x"></i>
-                        </div>
                         <h4 class="mb-3">Flooring</h4>
                         <ul class="list-unstyled text-start">
                             <li><i class="fas fa-check text-primary me-2"></i> Flooring</li>
                         </ul>
+                        <a href="{% url 'services' %}" class="btn btn-outline-primary mt-3">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- All Services Section (initially hidden) -->
+        <div id="allServices" style="display: none;" class="mt-5">
+            <h3 class="text-center mb-4">All Our Services</h3>
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                <!-- Building Works -->
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="fas fa-home fa-3x text-primary mb-3"></i>
+                            <h5>Loft Conversions</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="fas fa-expand-arrows-alt fa-3x text-primary mb-3"></i>
+                            <h5>Extensions</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="fas fa-paint-roller fa-3x text-primary mb-3"></i>
+                            <h5>Painting</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="fas fa-scroll fa-3x text-primary mb-3"></i>
+                            <h5>Wallpaper</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="fas fa-trowel fa-3x text-primary mb-3"></i>
+                            <h5>Plastering</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="fas fa-toilet fa-3x text-primary mb-3"></i>
+                            <h5>Bathroom Installation</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="fas fa-border-all fa-3x text-primary mb-3"></i>
+                            <h5>Tiling Fittings</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="fas fa-bolt fa-3x text-primary mb-3"></i>
+                            <h5>Electrical Work</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="fas fa-faucet fa-3x text-primary mb-3"></i>
+                            <h5>Plumbing</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="fas fa-home fa-3x text-primary mb-3"></i>
+                            <h5>Roof Work & Repairs</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="fas fa-city fa-3x text-primary mb-3"></i>
+                            <h5>House Renovation</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="fas fa-th-large fa-3x text-primary mb-3"></i>
+                            <h5>Flooring</h5>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         
         <div class="text-center mt-4">
-            <a href="{% url 'services' %}" class="btn btn-primary btn-lg px-4 mt-3">View All Services</a>
+            <button id="viewAllBtn" class="btn btn-outline-primary btn-lg">View All Services</button>
         </div>
+        
+        <script>
+            document.getElementById('viewAllBtn').addEventListener('click', function() {
+                const allServices = document.getElementById('allServices');
+                const button = document.getElementById('viewAllBtn');
+                
+                if (allServices.style.display === 'none' || !allServices.style.display) {
+                    allServices.style.display = 'block';
+                    button.textContent = 'Hide Services';
+                    // Smooth scroll to the all services section
+                    allServices.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    allServices.style.display = 'none';
+                    button.textContent = 'View All Services';
+                }
+            });
+        </script>
     </section>
     
     <!-- Why Choose Us Section -->
