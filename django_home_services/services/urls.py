@@ -6,6 +6,8 @@ urlpatterns = [
     # Main pages
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
+    path('privacy-policy/', views.privacy_policy, name='privacy_policy'),
+    path('terms-of-service/', views.terms_of_service, name='terms_of_service'),
     
     # Services
     path('services/', views.services_list, name='services'),
@@ -22,6 +24,7 @@ urlpatterns = [
     path('booking/success/', views.booking_success, name='booking_success'),
     path('bookings/cancel/<int:booking_id>/', views.cancel_booking, name='cancel_booking'),
     path('bookings/rate/<int:booking_id>/', views.rate_booking, name='rate_booking'),
+    path('bookings/update-status/<int:booking_id>/<str:status>/', views.update_booking_status, name='update_booking_status'),
     
     # User account
     path('dashboard/', views.dashboard, name='dashboard'),

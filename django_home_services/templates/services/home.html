@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Home Services - Professional Property Maintenance{% endblock %}
+{% block title %}HomeFix - Professional Property Maintenance{% endblock %}
 
 {% block extra_css %}
 <style>
@@ -109,8 +109,8 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6 mb-5 mb-lg-0">
-                <h1 class="display-4 fw-bold mb-4">Professional Property Maintenance in London</h1>
-                <p class="lead mb-4">With 20 years of experience, Mehar Builders offers high-quality, affordable property maintenance services throughout London.</p>
+                <h1 class="display-4 fw-bold mb-4">Professional Home Services and Property Maintenance in London</h1>
+                <p class="lead mb-4">With 20 years of experience, Homefix offers high-quality, affordable property maintenance and home services throughout London.</p>
                 <div class="d-flex gap-3">
                     <a href="{% url 'services' %}" class="btn btn-light btn-lg px-4 d-inline-flex align-items-center">
                         Book a Service <i class="bi bi-arrow-right ms-2"></i>
@@ -168,7 +168,35 @@
                 <div class="card h-100 shadow-sm">
                     <div class="card-body">
                         <div class="text-center mb-3">
-                            <i class="fas fa-{{ service.icon }} fa-3x text-primary"></i>
+                            {% if 'plumbing' in service.name|lower %}
+                                <img src="{% static 'images/plumbing.jpg' %}" class="img-fluid rounded mb-3" alt="{{ service.name }}" style="height: 120px; object-fit: cover;">
+                            {% elif 'electrical' in service.name|lower or 'electric' in service.name|lower %}
+                                <img src="{% static 'images/electrician.jpeg' %}" class="img-fluid rounded mb-3" alt="{{ service.name }}" style="height: 120px; object-fit: cover;">
+                            {% elif 'bathroom' in service.name|lower or 'tile' in service.name|lower or 'tiling' in service.name|lower %}
+                                <img src="{% static 'images/bathroom&tilling.jpeg' %}" class="img-fluid rounded mb-3" alt="{{ service.name }}" style="height: 120px; object-fit: cover;">
+                            {% elif 'paint' in service.name|lower or 'painting' in service.name|lower %}
+                                <img src="{% static 'images/painting.jpeg' %}" class="img-fluid rounded mb-3" alt="{{ service.name }}" style="height: 120px; object-fit: cover;">
+                            {% elif 'wallpaper' in service.name|lower %}
+                                <img src="{% static 'images/wallpaper.jpeg' %}" class="img-fluid rounded mb-3" alt="{{ service.name }}" style="height: 120px; object-fit: cover;">
+                            {% elif 'floor' in service.name|lower %}
+                                <img src="{% static 'images/flooring.jpeg' %}" class="img-fluid rounded mb-3" alt="{{ service.name }}" style="height: 120px; object-fit: cover;">
+                            {% elif 'garden' in service.name|lower or 'landscaping' in service.name|lower %}
+                                <img src="{% static 'images/gardening.jpeg' %}" class="img-fluid rounded mb-3" alt="{{ service.name }}" style="height: 120px; object-fit: cover;">
+                            {% elif 'roof' in service.name|lower %}
+                                <img src="{% static 'images/roofwork&repair.jpeg' %}" class="img-fluid rounded mb-3" alt="{{ service.name }}" style="height: 120px; object-fit: cover;">
+                            {% elif 'carpent' in service.name|lower or 'wood' in service.name|lower %}
+                                <img src="{% static 'images/carpenter.jpeg' %}" class="img-fluid rounded mb-3" alt="{{ service.name }}" style="height: 120px; object-fit: cover;">
+                            {% elif 'loft' in service.name|lower or 'conversion' in service.name|lower %}
+                                <img src="{% static 'images/loft conversions.jpeg' %}" class="img-fluid rounded mb-3" alt="{{ service.name }}" style="height: 120px; object-fit: cover;">
+                            {% elif 'extension' in service.name|lower %}
+                                <img src="{% static 'images/Extensions.jpeg' %}" class="img-fluid rounded mb-3" alt="{{ service.name }}" style="height: 120px; object-fit: cover;">
+                            {% elif 'renovation' in service.name|lower or 'build' in service.name|lower %}
+                                <img src="{% static 'images/house_re.jpeg' %}" class="img-fluid rounded mb-3" alt="{{ service.name }}" style="height: 120px; object-fit: cover;">
+                            {% elif 'clean' in service.name|lower %}
+                                <img src="{% static 'images/cleaning.jpeg' %}" class="img-fluid rounded mb-3" alt="{{ service.name }}" style="height: 120px; object-fit: cover;">
+                            {% else %}
+                                <img src="{% static 'images/maintenence.jpeg' %}" class="img-fluid rounded mb-3" alt="{{ service.name }}" style="height: 120px; object-fit: cover;">
+                            {% endif %}
                         </div>
                         <h5 class="card-title text-center">{{ service.name }}</h5>
                         <p class="card-text">{{ service.description }}</p>
@@ -190,12 +218,12 @@
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <div class="col">
                 <div class="card h-100 border-0 shadow-sm">
-                    <img src="{% static 'images/carpenter.jpeg' %}" class="card-img-top" alt="Building Works" style="height: 200px; object-fit: cover;">
+                    <img src="{% static 'images/building_work.jpg' %}" class="card-img-top" alt="Building Works" style="height: 200px; object-fit: cover;">
                     <div class="card-body text-center">
                         <h4 class="mb-3">Building Works</h4>
                         <ul class="list-unstyled text-start">
                             <li><i class="fas fa-check text-primary me-2"></i> Loft conversions</li>
-                            <li><i class="fas fa-check text-primary me-2"></i> Extensions</li>
+                            <li><i class="fas fa-check text-primary me-2"></i> Extensions <img src="{% static 'images/Extensions.jpeg' %}" class="img-fluid rounded mb-2" alt="Extensions" style="height: 80px; width: 100%; object-fit: cover;"></li>
                         </ul>
                         <a href="{% url 'services' %}" class="btn btn-outline-primary mt-3">Learn More</a>
                     </div>
@@ -203,7 +231,7 @@
             </div>
             <div class="col">
                 <div class="card h-100 border-0 shadow-sm">
-                    <img src="{% static 'images/painting.jpeg' %}" class="card-img-top" alt="Interior Finishing" style="height: 200px; object-fit: cover;">
+                    <img src="{% static 'images/wallpaper.jpeg' %}" class="card-img-top" alt="Interior Finishing" style="height: 200px; object-fit: cover;">
                     <div class="card-body text-center">
                         <h4 class="mb-3">Interior Finishing</h4>
                         <ul class="list-unstyled text-start">
@@ -276,7 +304,7 @@
                 <div class="col">
                     <div class="card h-100 border-0 shadow-sm">
                         <div class="card-body text-center">
-                            <i class="fas fa-home fa-3x text-primary mb-3"></i>
+                            <img src="{% static 'images/house_re.jpeg' %}" class="img-fluid rounded mb-3" alt="Loft Conversions" style="height: 100px; object-fit: cover;">
                             <h5>Loft Conversions</h5>
                         </div>
                     </div>
@@ -284,7 +312,7 @@
                 <div class="col">
                     <div class="card h-100 border-0 shadow-sm">
                         <div class="card-body text-center">
-                            <i class="fas fa-expand-arrows-alt fa-3x text-primary mb-3"></i>
+                            <img src="{% static 'images/house_re.jpeg' %}" class="img-fluid rounded mb-3" alt="Extensions" style="height: 100px; object-fit: cover;">
                             <h5>Extensions</h5>
                         </div>
                     </div>
@@ -292,7 +320,7 @@
                 <div class="col">
                     <div class="card h-100 border-0 shadow-sm">
                         <div class="card-body text-center">
-                            <i class="fas fa-paint-roller fa-3x text-primary mb-3"></i>
+                            <img src="{% static 'images/painting.jpeg' %}" class="img-fluid rounded mb-3" alt="Painting" style="height: 100px; object-fit: cover;">
                             <h5>Painting</h5>
                         </div>
                     </div>
@@ -300,7 +328,7 @@
                 <div class="col">
                     <div class="card h-100 border-0 shadow-sm">
                         <div class="card-body text-center">
-                            <i class="fas fa-scroll fa-3x text-primary mb-3"></i>
+                            <img src="{% static 'images/maintenence.jpeg' %}" class="img-fluid rounded mb-3" alt="Wallpaper" style="height: 100px; object-fit: cover;">
                             <h5>Wallpaper</h5>
                         </div>
                     </div>
@@ -308,7 +336,7 @@
                 <div class="col">
                     <div class="card h-100 border-0 shadow-sm">
                         <div class="card-body text-center">
-                            <i class="fas fa-trowel fa-3x text-primary mb-3"></i>
+                            <img src="{% static 'images/maintenence.jpeg' %}" class="img-fluid rounded mb-3" alt="Plastering" style="height: 100px; object-fit: cover;">
                             <h5>Plastering</h5>
                         </div>
                     </div>
@@ -316,7 +344,7 @@
                 <div class="col">
                     <div class="card h-100 border-0 shadow-sm">
                         <div class="card-body text-center">
-                            <i class="fas fa-toilet fa-3x text-primary mb-3"></i>
+                            <img src="{% static 'images/bathroom.jpeg' %}" class="img-fluid rounded mb-3" alt="Bathroom Installation" style="height: 100px; object-fit: cover;">
                             <h5>Bathroom Installation</h5>
                         </div>
                     </div>
@@ -324,7 +352,7 @@
                 <div class="col">
                     <div class="card h-100 border-0 shadow-sm">
                         <div class="card-body text-center">
-                            <i class="fas fa-border-all fa-3x text-primary mb-3"></i>
+                            <img src="{% static 'images/bathroom&tilling.jpeg' %}" class="img-fluid rounded mb-3" alt="Tiling Fittings" style="height: 100px; object-fit: cover;">
                             <h5>Tiling Fittings</h5>
                         </div>
                     </div>
@@ -332,7 +360,7 @@
                 <div class="col">
                     <div class="card h-100 border-0 shadow-sm">
                         <div class="card-body text-center">
-                            <i class="fas fa-bolt fa-3x text-primary mb-3"></i>
+                            <img src="{% static 'images/electrician.jpeg' %}" class="img-fluid rounded mb-3" alt="Electrical Work" style="height: 100px; object-fit: cover;">
                             <h5>Electrical Work</h5>
                         </div>
                     </div>
@@ -340,7 +368,7 @@
                 <div class="col">
                     <div class="card h-100 border-0 shadow-sm">
                         <div class="card-body text-center">
-                            <i class="fas fa-faucet fa-3x text-primary mb-3"></i>
+                            <img src="{% static 'images/plumbing.jpg' %}" class="img-fluid rounded mb-3" alt="Plumbing" style="height: 100px; object-fit: cover;">
                             <h5>Plumbing</h5>
                         </div>
                     </div>
@@ -348,15 +376,7 @@
                 <div class="col">
                     <div class="card h-100 border-0 shadow-sm">
                         <div class="card-body text-center">
-                            <i class="fas fa-home fa-3x text-primary mb-3"></i>
-                            <h5>Roof Work & Repairs</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100 border-0 shadow-sm">
-                        <div class="card-body text-center">
-                            <i class="fas fa-city fa-3x text-primary mb-3"></i>
+                            <img src="{% static 'images/house_re.jpeg' %}" class="img-fluid rounded mb-3" alt="House Renovation" style="height: 100px; object-fit: cover;">
                             <h5>House Renovation</h5>
                         </div>
                     </div>
@@ -364,7 +384,7 @@
                 <div class="col">
                     <div class="card h-100 border-0 shadow-sm">
                         <div class="card-body text-center">
-                            <i class="fas fa-th-large fa-3x text-primary mb-3"></i>
+                            <img src="{% static 'images/flooring.jpeg' %}" class="img-fluid rounded mb-3" alt="Flooring" style="height: 100px; object-fit: cover;">
                             <h5>Flooring</h5>
                         </div>
                     </div>
@@ -396,7 +416,7 @@
     
     <!-- Why Choose Us Section -->
     <section class="py-5">
-        <h2 class="text-center mb-4">Why Choose Mehar Builders</h2>
+        <h2 class="text-center mb-4">Why Choose Homefix</h2>
         <div class="row">
             <div class="col-lg-4 mb-4">
                 <div class="card h-100">

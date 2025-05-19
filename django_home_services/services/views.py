@@ -19,6 +19,14 @@ def about(request):
     """About page view"""
     return render(request, 'services/about.html')
 
+def privacy_policy(request):
+    """Privacy policy page view"""
+    return render(request, 'services/privacy_policy.html')
+
+def terms_of_service(request):
+    """Terms of service page view"""
+    return render(request, 'services/terms_of_service.html')
+
 def services_list(request):
     """Services listing page"""
     services = Service.objects.all()
@@ -171,13 +179,37 @@ def rate_booking(request, booking_id):
         'form': form,
     })
 
+@login_required
+def update_booking_status(request, booking_id, status):
+    """Update booking status - admin only"""
+    # Check if user is admin
+    if not request.user.is_staff and not request.user.is_superuser:
+        messages.error(request, "You don't have permission to perform this action.")
+        return redirect('dashboard')
+    
+    booking = get_object_or_404(Booking, id=booking_id)
+    
+    # Validate the status
+    valid_statuses = [status_choice[0] for status_choice in Booking.STATUS_CHOICES]
+    if status not in valid_statuses:
+        messages.error(request, f"Invalid status: {status}")
+        return redirect('dashboard')
+    
+    # Update the booking status
+    booking.status = status
+    booking.save()
+    
+    messages.success(request, f"Booking #{booking_id} status updated to {status.replace('_', ' ').title()}")
+    return redirect('dashboard')
+
 def register(request):
     """User registration view"""
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
+            # Specify the backend when logging in the user
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             messages.success(request, 'Registration successful!')
             return redirect('dashboard')
     else:

@@ -90,7 +90,7 @@
                                                 {{ booking.email }}
                                             </td>
                                             <td>
-                                                <span class="badge {% if booking.status == 'confirmed' %}bg-success{% elif booking.status == 'pending' %}bg-warning{% elif booking.status == 'cancelled' %}bg-danger{% else %}bg-secondary{% endif %}">
+                                                <span class="badge {% if booking.status == 'confirmed' %}bg-success{% elif booking.status == 'pending' %}bg-warning{% elif booking.status == 'in_progress' %}bg-info{% elif booking.status == 'cancelled' %}bg-danger{% elif booking.status == 'completed' %}bg-secondary{% else %}bg-secondary{% endif %}">
                                                     {{ booking.status|title }}
                                                 </span>
                                             </td>
@@ -99,12 +99,52 @@
                                                     <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#bookingDetails{{ booking.id }}">
                                                         <i class="fas fa-eye"></i>
                                                     </button>
-                                                    <a href="#" class="btn btn-outline-success">
+                                                    
+                                                    {% if booking.status == 'pending' %}
+                                                    <!-- Actions for pending bookings -->
+                                                    <a href="{% url 'update_booking_status' booking.id 'confirmed' %}" class="btn btn-outline-success" title="Confirm Booking">
                                                         <i class="fas fa-check"></i>
                                                     </a>
-                                                    <a href="#" class="btn btn-outline-danger">
+                                                    <a href="{% url 'update_booking_status' booking.id 'in_progress' %}" class="btn btn-outline-info" title="Mark as In Progress">
+                                                        <i class="fas fa-spinner"></i>
+                                                    </a>
+                                                    <a href="{% url 'update_booking_status' booking.id 'cancelled' %}" class="btn btn-outline-danger" title="Cancel Booking">
                                                         <i class="fas fa-times"></i>
                                                     </a>
+                                                    
+                                                    {% elif booking.status == 'in_progress' %}
+                                                    <!-- Actions for in-progress bookings -->
+                                                    <a href="{% url 'update_booking_status' booking.id 'completed' %}" class="btn btn-outline-success" title="Mark as Completed">
+                                                        <i class="fas fa-check-double"></i>
+                                                    </a>
+                                                    <a href="{% url 'update_booking_status' booking.id 'cancelled' %}" class="btn btn-outline-danger" title="Cancel Booking">
+                                                        <i class="fas fa-times"></i>
+                                                    </a>
+                                                    
+                                                    {% elif booking.status == 'confirmed' %}
+                                                    <!-- Actions for confirmed bookings -->
+                                                    <a href="{% url 'update_booking_status' booking.id 'in_progress' %}" class="btn btn-outline-info" title="Mark as In Progress">
+                                                        <i class="fas fa-spinner"></i>
+                                                    </a>
+                                                    <a href="{% url 'update_booking_status' booking.id 'completed' %}" class="btn btn-outline-success" title="Mark as Completed">
+                                                        <i class="fas fa-check-double"></i>
+                                                    </a>
+                                                    <a href="{% url 'update_booking_status' booking.id 'cancelled' %}" class="btn btn-outline-danger" title="Cancel Booking">
+                                                        <i class="fas fa-times"></i>
+                                                    </a>
+                                                    
+                                                    {% elif booking.status == 'completed' %}
+                                                    <!-- No actions for completed bookings -->
+                                                    <span class="btn btn-outline-secondary disabled">
+                                                        <i class="fas fa-lock"></i>
+                                                    </span>
+                                                    
+                                                    {% elif booking.status == 'cancelled' %}
+                                                    <!-- Option to reactivate cancelled bookings -->
+                                                    <a href="{% url 'update_booking_status' booking.id 'pending' %}" class="btn btn-outline-warning" title="Reactivate Booking">
+                                                        <i class="fas fa-redo"></i>
+                                                    </a>
+                                                    {% endif %}
                                                 </div>
                                             </td>
                                         </tr>
@@ -168,7 +208,7 @@
                                                             <strong>Time:</strong> {{ booking.time|time:"g:i A" }}<br>
                                                             <strong>Address:</strong> {{ booking.address }}, {{ booking.postcode }}<br>
                                                             <strong>Status:</strong> 
-                                                            <span class="badge {% if booking.status == 'confirmed' %}bg-success{% else %}bg-warning{% endif %}">
+                                                            <span class="badge {% if booking.status == 'confirmed' %}bg-success{% elif booking.status == 'pending' %}bg-warning{% elif booking.status == 'in_progress' %}bg-info{% elif booking.status == 'cancelled' %}bg-danger{% elif booking.status == 'completed' %}bg-secondary{% else %}bg-secondary{% endif %}">
                                                                 {{ booking.status|title }}
                                                             </span>
                                                         </p>
