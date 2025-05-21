@@ -204,8 +204,8 @@
                             <img src="{% static 'images/loft conversions.jpeg' %}" class="img-fluid rounded" alt="{{ service.name }}">
                         {% elif 'extension' in service.name|lower %}
                             <img src="{% static 'images/Extensions.jpeg' %}" class="img-fluid rounded" alt="{{ service.name }}">
-                        {% elif 'renovation' in service.name|lower or 'build' in service.name|lower %}
-                            <img src="{% static 'images/house_re.jpeg' %}" class="img-fluid rounded" alt="{{ service.name }}">
+                        {% elif 'renovation' in service.name|lower or 'build' in service.name|lower or 'construction' in service.name|lower %}
+                            <img src="{% static 'images/Extensions.jpeg' %}" class="img-fluid rounded" alt="{{ service.name }}">
                         {% elif 'clean' in service.name|lower %}
                             <img src="{% static 'images/cleaning.jpeg' %}" class="img-fluid rounded" alt="{{ service.name }}">
                         {% else %}
