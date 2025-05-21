@@ -178,12 +178,50 @@
                         </div>
                         <h2 class="mb-0">About This Service</h2>
                     </div>
+                    
+                    <!-- Service Image -->
+                    <div class="service-image mb-4">
+                        {% load static %}
+                        {% if 'plumbing' in service.name|lower %}
+                            <img src="{% static 'images/plumbing.jpg' %}" class="img-fluid rounded" alt="{{ service.name }}">
+                        {% elif 'electrical' in service.name|lower or 'electric' in service.name|lower %}
+                            <img src="{% static 'images/electrician.jpeg' %}" class="img-fluid rounded" alt="{{ service.name }}">
+                        {% elif 'bathroom' in service.name|lower or 'tile' in service.name|lower or 'tiling' in service.name|lower %}
+                            <img src="{% static 'images/bathroom&tilling.jpeg' %}" class="img-fluid rounded" alt="{{ service.name }}">
+                        {% elif 'paint' in service.name|lower or 'painting' in service.name|lower %}
+                            <img src="{% static 'images/painting.jpeg' %}" class="img-fluid rounded" alt="{{ service.name }}">
+                        {% elif 'wallpaper' in service.name|lower %}
+                            <img src="{% static 'images/wallpaper.jpeg' %}" class="img-fluid rounded" alt="{{ service.name }}">
+                        {% elif 'floor' in service.name|lower %}
+                            <img src="{% static 'images/flooring.jpeg' %}" class="img-fluid rounded" alt="{{ service.name }}">
+                        {% elif 'garden' in service.name|lower or 'landscaping' in service.name|lower %}
+                            <img src="{% static 'images/gardening.jpeg' %}" class="img-fluid rounded" alt="{{ service.name }}">
+                        {% elif 'roof' in service.name|lower %}
+                            <img src="{% static 'images/roofwork&repair.jpeg' %}" class="img-fluid rounded" alt="{{ service.name }}">
+                        {% elif 'carpent' in service.name|lower or 'wood' in service.name|lower %}
+                            <img src="{% static 'images/carpenter.jpeg' %}" class="img-fluid rounded" alt="{{ service.name }}">
+                        {% elif 'loft' in service.name|lower or 'conversion' in service.name|lower %}
+                            <img src="{% static 'images/loft conversions.jpeg' %}" class="img-fluid rounded" alt="{{ service.name }}">
+                        {% elif 'extension' in service.name|lower %}
+                            <img src="{% static 'images/Extensions.jpeg' %}" class="img-fluid rounded" alt="{{ service.name }}">
+                        {% elif 'renovation' in service.name|lower or 'build' in service.name|lower %}
+                            <img src="{% static 'images/house_re.jpeg' %}" class="img-fluid rounded" alt="{{ service.name }}">
+                        {% elif 'clean' in service.name|lower %}
+                            <img src="{% static 'images/cleaning.jpeg' %}" class="img-fluid rounded" alt="{{ service.name }}">
+                        {% else %}
+                            <img src="{% static 'images/maintenence.jpeg' %}" class="img-fluid rounded" alt="{{ service.name }}">
+                        {% endif %}
+                    </div>
+                    
                     <p class="card-text lead mb-4">{{ service.description }}</p>
                     <a href="{% url 'book_service' service.id %}" class="btn btn-primary px-4">Book This Service</a>
                 </div>
             </div>
             
-            <h2 class="h3 mb-4 text-center">Our {{ service.name }} Professionals</h2>
+            <!-- Clear spacing between cards -->
+            <div class="my-5" style="clear: both; position: relative; z-index: 10;">
+                <h2 class="h3 text-center py-3 bg-white">Our {{ service.name }} Professionals</h2>
+            </div>
             {% if providers %}
             <div class="row row-cols-1 row-cols-md-2 g-4">
                 {% for provider in providers %}
