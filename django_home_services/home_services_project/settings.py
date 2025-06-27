@@ -24,6 +24,8 @@ CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:58768',
     'http://127.0.0.1:60776',
     'http://127.0.0.1:64553',
+    'http://127.0.0.1:58008',
+    'http://127.0.0.1:64260',
 ]
 
 # Application definition
@@ -114,11 +116,21 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-# Sender account
-EMAIL_HOST_USER = 'abdullahshafiq146@gmail.com'  # updated to Abdullah's Gmail
-# App-password or Gmail OAuth token; store this securely in environment/.env
-EMAIL_HOST_PASSWORD = 'vkjwervxdjbrvebu'  # Gmail app password for Abdullah's account
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_USE_SSL = False
+EMAIL_TIMEOUT = 10
+EMAIL_HOST_USER = 'thehomefixuk@gmail.com'
+EMAIL_HOST_PASSWORD = 'fasaoxbivmfmzhdp'
+DEFAULT_FROM_EMAIL = 'thehomefixuk@gmail.com'
+EMAIL_SSL_CERTFILE = None
+EMAIL_SSL_KEYFILE = None
+SERVER_EMAIL = 'thehomefixuk@gmail.com'
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
+
+# Admin email addresses for booking notifications
+ADMIN_EMAILS = [
+    'alyasghar719@gmail.com',
+    'abdullahshafiq146@gmail.com'
+]
 # -------------------------------------------------------------------
 
 

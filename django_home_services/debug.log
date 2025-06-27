@@ -1,0 +1,4 @@
+INFO 2025-06-22 17:17:32,585 autoreload Watching for file changes with StatReloader
+INFO 2025-06-22 17:17:59,001 autoreload C:\Users\Cc\django-home-services\Home-Fix\django_home_services\services\views.py changed, reloading.
+INFO 2025-06-22 17:17:59,997 autoreload Watching for file changes with StatReloader
+INFO 2025-06-22 17:18:11,940 autoreload C:\Users\Cc\django-home-services\Home-Fix\django_home_services\home_services_project\settings.py changed, reloading.

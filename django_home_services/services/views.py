@@ -91,13 +91,65 @@ def book_service(request, service_id=None):
                     f"Postcode: {booking.postcode}\n"
                     f"Notes: {booking.notes}"
                 )
-                send_mail(
-                    subject=f"New Booking #{booking.id}",
-                    message=booking_details,
-                    from_email=settings.DEFAULT_FROM_EMAIL,
-                    recipient_list=['abdullahshafiq146@gmail.com'],
-                    fail_silently=True,
-                )
+                try:
+                    # Add a small delay to avoid triggering Gmail's spam protection
+                    import time
+                    time.sleep(2)  # Increased delay
+                    
+                    # Send admin notification with retry logic
+                    max_retries = 3
+                    retry_count = 0
+                    while retry_count < max_retries:
+                        try:
+                            send_mail(
+                                subject=f"New Booking #{booking.id}",
+                                message=booking_details,
+                                from_email=settings.DEFAULT_FROM_EMAIL,
+                                recipient_list=settings.ADMIN_EMAILS,
+                                fail_silently=False,
+                                auth_user=settings.EMAIL_HOST_USER,
+                                auth_password=settings.EMAIL_HOST_PASSWORD
+                            )
+                            break  # If successful, break out of retry loop
+                        except Exception as e:
+                            retry_count += 1
+                            if retry_count < max_retries:
+                                print(f"[EMAIL RETRY] Attempt {retry_count} failed: {str(e)}")
+                                time.sleep(2)  # Wait before retrying
+                            else:
+                                raise  # Re-raise the last exception after max retries
+                except Exception as e:
+                    print(f"[EMAIL ERROR] Could not send booking email: {str(e)}")
+                    messages.error(request, f"Failed to send booking notification email: {str(e)}")
+                
+                # Send customer confirmation
+                try:
+                    customer_name = booking.customer.first_name if booking.customer and booking.customer.first_name else "Customer"
+                    user_subject = f"Booking Confirmation - {booking.service}"
+                    user_message = f"""Dear {customer_name},
+
+Thank you for choosing Home Fix.
+
+We are pleased to confirm your booking for our {booking.service} service, scheduled for {booking.date.strftime('%A, %B %d, %Y')} at {booking.time.strftime('%I:%M %p')}.
+
+Our team will be in touch shortly to verify the details and ensure all your requirements are met. Should you have any questions or specific requests in the meantime, please don't hesitate to reach out to us.
+
+We look forward to serving you with the highest standard of care and professionalism.
+
+Warm regards,
+The Home Fix Team"""
+                    send_mail(
+                        subject=user_subject,
+                        message=user_message,
+                        from_email=settings.DEFAULT_FROM_EMAIL,
+                        recipient_list=[booking.email],
+                        fail_silently=False,
+                        auth_user=settings.EMAIL_HOST_USER,
+                        auth_password=settings.EMAIL_HOST_PASSWORD
+                    )
+                except Exception as e:
+                    print(f"[EMAIL ERROR] Could not send confirmation email to user: {str(e)}")
+                    messages.error(request, f"Failed to send confirmation email: {str(e)}")
             except Exception as e:
                 # Log/print error in development mode
                 print(f"[EMAIL ERROR] Could not send booking email: {e}")

@@ -42,6 +42,58 @@
         overflow: hidden;
         border: none;
         box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        text-align: justify;
+        text-justify: inter-word;
+    }
+    
+    .card {
+        text-align: justify;
+        text-justify: inter-word;
+    }
+    
+    .card-title, .card h4, .card h5 {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+    
+    .card-text {
+        text-align: justify;
+        text-justify: inter-word;
+        margin-bottom: 1rem;
+        line-height: 1.6;
+    }
+    
+    .card ul.list-unstyled {
+        text-align: left;
+        padding-left: 1.5rem;
+    }
+    
+    .card ul.list-unstyled li {
+        margin-bottom: 0.5rem;
+        line-height: 1.5;
+    }
+    
+    .card-body {
+        padding: 1.5rem;
+    }
+    
+    .card-footer {
+        background: transparent !important;
+        border-top: 1px solid rgba(0,0,0,0.05) !important;
+        padding: 0.5rem 1.5rem 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn {
+        text-align: center;
+        white-space: nowrap;
+    }
+    
+    .text-muted {
+        text-align: center !important;
+        display: block;
     }
     
     .service-card:hover {
@@ -200,10 +252,11 @@
                         </div>
                         <h5 class="card-title text-center">{{ service.name }}</h5>
                         <p class="card-text">{{ service.description }}</p>
-                        <p class="text-center text-muted">Get a free quote today</p>
+                        <p class="text-center text-dark fw-bold mb-0">Free Estimation, Guaranteed Satisfaction</p>
                     </div>
                     <div class="card-footer bg-transparent border-0 text-center">
-                        <a href="{% url 'service_detail' service.id %}" class="btn btn-outline-primary">Learn More</a>
+                        <p class="text-muted mb-2">Get a free quote today</p>
+                        <a href="{% url 'service_detail' service.id %}" class="btn btn-outline-primary">Click Here</a>
                     </div>
                 </div>
             </div>
@@ -223,13 +276,9 @@
                         <h4 class="mb-3">Building Works</h4>
                         <ul class="list-unstyled text-start">
                             <li><i class="fas fa-check text-primary me-2"></i> Loft conversions</li>
-                            <li><i class="fas fa-check text-primary me-2"></i> Extensions
-                                <div class="mt-2 mb-3">
-                                    <img src="{% static 'images/extension_specialist.png' %}" class="img-fluid rounded" alt="Extensions" style="height: 80px; width: 100%; object-fit: cover;">
-                                </div>
-                            </li>
+                            <li><i class="fas fa-check text-primary me-2"></i> Extensions</li>
                         </ul>
-                        <a href="{% url 'services' %}" class="btn btn-outline-primary mt-3">Learn More</a>
+                        <a href="{% url 'services' %}" class="btn btn-outline-primary mt-3">Click Here</a>
                     </div>
                 </div>
             </div>
@@ -243,7 +292,7 @@
                             <li><i class="fas fa-check text-primary me-2"></i> Wallpaper</li>
                             <li><i class="fas fa-check text-primary me-2"></i> Plastering</li>
                         </ul>
-                        <a href="{% url 'services' %}" class="btn btn-outline-primary mt-3">Learn More</a>
+                        <a href="{% url 'services' %}" class="btn btn-outline-primary mt-3">Click Here</a>
                     </div>
                 </div>
             </div>
@@ -256,7 +305,7 @@
                             <li><i class="fas fa-check text-primary me-2"></i> Bathroom installation</li>
                             <li><i class="fas fa-check text-primary me-2"></i> Tiling fittings</li>
                         </ul>
-                        <a href="{% url 'services' %}" class="btn btn-outline-primary mt-3">Learn More</a>
+                        <a href="{% url 'services' %}" class="btn btn-outline-primary mt-3">Click Here</a>
                     </div>
                 </div>
             </div>
@@ -270,7 +319,7 @@
                             <li><i class="fas fa-check text-primary me-2"></i> Plumbing</li>
                             <li><i class="fas fa-check text-primary me-2"></i> Roof work & repairs</li>
                         </ul>
-                        <a href="{% url 'services' %}" class="btn btn-outline-primary mt-3">Learn More</a>
+                        <a href="{% url 'services' %}" class="btn btn-outline-primary mt-3">Click Here</a>
                     </div>
                 </div>
             </div>
@@ -282,7 +331,7 @@
                         <ul class="list-unstyled text-start">
                             <li><i class="fas fa-check text-primary me-2"></i> House renovation</li>
                         </ul>
-                        <a href="{% url 'services' %}" class="btn btn-outline-primary mt-3">Learn More</a>
+                        <a href="{% url 'services' %}" class="btn btn-outline-primary mt-3">Click Here</a>
                     </div>
                 </div>
             </div>
@@ -294,7 +343,7 @@
                         <ul class="list-unstyled text-start">
                             <li><i class="fas fa-check text-primary me-2"></i> Flooring</li>
                         </ul>
-                        <a href="{% url 'services' %}" class="btn btn-outline-primary mt-3">Learn More</a>
+                        <a href="{% url 'services' %}" class="btn btn-outline-primary mt-3">Click Here</a>
                     </div>
                 </div>
             </div>

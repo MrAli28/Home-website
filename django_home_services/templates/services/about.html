@@ -105,9 +105,43 @@
 <section class="about-header">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-8 text-center">
-                <h1 class="display-4 fw-bold mb-4">About Homefix</h1>
-                <p class="lead">Professional and reliable property maintenance throughout London with 20 years of experience.</p>
+            <div class="col-lg-10 text-center">
+                <h1 class="display-4 fw-bold mb-4 text-white">About Homefix</h1>
+                <p class="lead mb-4 text-white">Your Trusted Partner for Professional Property Maintenance in London</p>
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <p class="mb-4 text-white">For over two decades, Homefix has been the go-to name for comprehensive property maintenance and home improvement services across London. What began as a small family business has grown into one of the most trusted property service providers in the capital, thanks to our unwavering commitment to quality, reliability, and exceptional customer service.</p>
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-check-circle text-white me-3" style="font-size: 1.5rem;"></i>
+                                    <div class="text-white">
+                                        <h5 class="mb-0">20+ Years</h5>
+                                        <small class="text-white-80">Of Trusted Service</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-check-circle text-white me-3" style="font-size: 1.5rem;"></i>
+                                    <div class="text-white">
+                                        <h5 class="mb-0">Fully Insured</h5>
+                                        <small class="text-white-80">Public Liability Covered</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-check-circle text-white me-3" style="font-size: 1.5rem;"></i>
+                                    <div class="text-white">
+                                        <h5 class="mb-0">Flexible Hours</h5>
+                                        <small class="text-white-80">To Suit Your Schedule</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -131,12 +165,16 @@
 
         <!-- Our Story -->
         <div class="row justify-content-center my-5">
-            <div class="col-lg-10">
-                <div class="card feature-card p-4">
-                    <div class="card-body">
-                        <h3 class="h4 mb-4 text-center">Our Story</h3>
-                        <p>With over 20 years of experience in property maintenance, Homefix has established itself as a trusted name in London. We've built our reputation by consistently delivering high-quality work and excellent customer service.</p>
-                        <p>We hold public liability insurance for all our work, ensuring peace of mind for our customers. Our team is committed to working around hours that suit you, making home improvement and maintenance as hassle-free as possible.</p>
+            <div class="col-12 p-0">
+                <div class="p-5" style="background-color: #004080; color: white; border-radius: 10px;">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-10">
+                                <h3 class="h2 mb-4 text-center">Our Story</h3>
+                                <p class="lead">With over 20 years of experience in property maintenance, Homefix has established itself as a trusted name in London. We've built our reputation by consistently delivering high-quality work and excellent customer service.</p>
+                                <p class="mb-0">We hold public liability insurance for all our work, ensuring peace of mind for our customers. Our team is committed to working around hours that suit you, making home improvement and maintenance as hassle-free as possible.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -199,8 +237,7 @@
         <!-- Call to Action -->
         <div class="row justify-content-center mt-5">
             <div class="col-lg-8 text-center">
-                <a href="{% url 'services' %}" class="btn btn-primary me-3 px-4 py-2">View Our Services</a>
-                <a href="{% url 'register' %}" class="btn btn-outline-primary px-4 py-2">Join Today</a>
+                <a href="{% url 'services' %}" class="btn btn-primary px-4 py-2">View Our Services</a>
             </div>
         </div>
     </div>

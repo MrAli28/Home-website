@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (postcode.toUpperCase().startsWith('E') || postcode.toUpperCase().startsWith('SW') || postcode.toUpperCase().startsWith('W')) {
                     availabilityResult.innerHTML = '<div class="alert alert-success">Great news! We serve your area.</div>';
                 } else {
-                    availabilityResult.innerHTML = '<div class="alert alert-warning">Sorry, we don't currently serve your area.</div>';
+                    availabilityResult.innerHTML = "<div class='alert alert-warning'>Sorry, we don't currently serve your area.</div>";
                 }
             }, 1000);
         });
@@ -58,4 +58,19 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     }
+
+    // Scroll animations
+    const animatedSections = document.querySelectorAll('.animated-section');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    animatedSections.forEach(section => {
+        observer.observe(section);
+    });
 });

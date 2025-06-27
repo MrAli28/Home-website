@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +12,25 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Ensure the page takes at least the full viewport height */
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        
+        /* Flex layout for the body to push footer to bottom */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        /* Main content should grow and push footer down */
+        main {
+            flex: 1 0 auto;
+            padding-bottom: 2rem;
+        }
+        
         :root {
             --primary-color: #004080;
             --secondary-color: #f8f9fa;
@@ -42,7 +62,9 @@
         }
 
     </style>
-    {% block extra_css %}{% endblock %}
+    {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+{% endblock %}
 </head>
 <body>
     <!-- Navigation -->
@@ -107,7 +129,7 @@
     </main>
 
     <!-- Ready to Get Started Section -->
-    <section class="py-5 position-relative" style="background-color: #f8f9fa;">
+    <section class="py-5 position-relative animated-section" style="background-color: #f8f9fa;">
         <div class="container position-relative" style="z-index: 1;">
             <div class="card border-0 rounded-lg shadow-lg" style="background: linear-gradient(135deg, #004080 0%, #0074D9 100%); overflow: hidden;">
                 <div class="card-body p-0">
@@ -136,7 +158,7 @@
     </section>
     
     <!-- Footer -->
-    <footer class="text-white" style="background-color: #004080;">
+    <footer class="text-white animated-section" style="background-color: #004080;">
 
         <!-- Main Footer Content -->
         <div class="py-5">
@@ -159,9 +181,7 @@
                             <a href="https://instagram.com/homefixuk" target="_blank" aria-label="Follow us on Instagram" class="text-white" style="background-color: rgba(255, 255, 255, 0.1); width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: all 0.3s ease;">
                                 <i class="fab fa-instagram"></i>
                             </a>
-                            <a href="https://wa.me/923061642273" target="_blank" aria-label="Contact us on WhatsApp" class="text-white" style="background-color: rgba(255, 255, 255, 0.1); width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: all 0.3s ease;">
-                                <i class="fab fa-whatsapp"></i>
-                            </a>
+
                         </div>
                     </div>
                     
@@ -196,7 +216,7 @@
                         <p class="text-white-50 mb-1"><i class="fas fa-map-marker-alt me-2"></i> 29 Barton Avenue, Romford, RM7 ONB</p>
                         <p class="text-white-50 mb-3">Property Maintenance Specialists</p>
                         <p class="text-white-50 mb-1"><i class="fas fa-phone me-2"></i> +447466992512</p>
-                        <p class="text-white-50 mb-1"><i class="fas fa-envelope me-2"></i> ajbuilders.construction29@gmail.com</p>
+                        <p class="text-white-50 mb-1"><i class="fas fa-envelope me-2"></i> thehomefixuk@gmail.com</p>
                         <p class="text-white-50 mb-1"><i class="fas fa-shield-alt me-2"></i> Fully Insured</p>
                         <p class="text-white-50 mb-1"><i class="fas fa-clock me-2"></i> Mon-Sat: 9AM to 6PM</p>
                     </div>

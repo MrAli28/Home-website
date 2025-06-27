@@ -1,0 +1,85 @@
+/* static/css/custom.css */
+
+/* General Animations & Transitions */
+body {
+    font-family: 'Poppins', sans-serif;
+    animation: fadeInAnimation ease 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Smooth transitions for links and buttons */
+a, .btn {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Card animation on hover */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+/* Navbar link hover effect */
+.navbar-nav .nav-link {
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: #fff;
+    transition: width 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover::after,
+.navbar-nav .nav-link.active::after {
+    width: 80%;
+}
+
+/* Button hover animation */
+.btn-primary:hover, .btn-light:hover {
+    transform: scale(1.05);
+}
+
+/* Section animations */
+.animated-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animated-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Footer social icon hover effect */
+footer .d-flex a:hover {
+    background-color: #0074D9 !important;
+    transform: scale(1.1);
+}
+
+/* Form input focus effect */
+.form-control:focus {
+    border-color: #0074D9;
+    box-shadow: 0 0 0 0.25rem rgba(0, 116, 217, 0.25);
+}
