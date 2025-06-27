@@ -1,5 +1,10 @@
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Load environment variables from a .env file at project root (if present)
+load_dotenv()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -11,6 +16,15 @@ SECRET_KEY = 'django-insecure-h3m4k5l6m7n8o9p0q1r2s3t4u5v6w7x8y9z0a1b2c3d4e5f6g7
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://127.0.0.1:8000',
+    'http://localhost:8000',
+    'http://127.0.0.1:56434',
+    'http://127.0.0.1:58768',
+    'http://127.0.0.1:60776',
+    'http://127.0.0.1:64553',
+]
 
 # Application definition
 
@@ -94,6 +108,19 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# -------------------- Email / SMTP configuration --------------------
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+# Sender account
+EMAIL_HOST_USER = 'abdullahshafiq146@gmail.com'  # updated to Abdullah's Gmail
+# App-password or Gmail OAuth token; store this securely in environment/.env
+EMAIL_HOST_PASSWORD = 'vkjwervxdjbrvebu'  # Gmail app password for Abdullah's account
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# -------------------------------------------------------------------
+
 
 # Authentication settings
 LOGIN_URL = '/login/'

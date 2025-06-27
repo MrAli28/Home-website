@@ -5,6 +5,8 @@ from django.contrib import messages
 from django.http import JsonResponse
 from .models import Service, Booking, Provider, ServiceArea, Review
 from .forms import BookingForm, UserRegistrationForm, UserProfileForm, ProviderRegistrationForm, ReviewForm
+from django.core.mail import send_mail
+from django.conf import settings
 
 def home(request):
     """Home page view"""
@@ -75,6 +77,55 @@ def book_service(request, service_id=None):
                 if not booking.email and request.user.email:
                     booking.email = request.user.email
             booking.save()
+            # Send email notification to admin
+            try:
+                booking_details = (
+                    f"New booking received (ID: {booking.id})\n\n"
+                    f"Service: {booking.service}\n"
+                    f"Date: {booking.date}\n"
+                    f"Time: {booking.time}\n"
+                    f"Customer: {booking.customer if booking.customer else 'Guest'}\n"
+                    f"Phone: {booking.phone_number}\n"
+                    f"Email: {booking.email}\n"
+                    f"Address: {booking.address}\n"
+                    f"Postcode: {booking.postcode}\n"
+                    f"Notes: {booking.notes}"
+                )
+                send_mail(
+                    subject=f"New Booking #{booking.id}",
+                    message=booking_details,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=['abdullahshafiq146@gmail.com'],
+                    fail_silently=True,
+                )
+            except Exception as e:
+                # Log/print error in development mode
+                print(f"[EMAIL ERROR] Could not send booking email: {e}")
+            # Send thank-you email to user
+            try:
+                customer_name = booking.customer.first_name if booking.customer and booking.customer.first_name else "Customer"
+                user_subject = f"Booking Confirmation - {booking.service}"
+                user_message = f"""Dear {customer_name},
+
+Thank you for choosing Home Fix.
+
+We are pleased to confirm your booking for our {booking.service} service, scheduled for {booking.date.strftime('%A, %B %d, %Y')} at {booking.time.strftime('%I:%M %p')}.
+
+Our team will be in touch shortly to verify the details and ensure all your requirements are met. Should you have any questions or specific requests in the meantime, please don't hesitate to reach out to us.
+
+We look forward to serving you with the highest standard of care and professionalism.
+
+Warm regards,
+The Home Fix Team"""
+                send_mail(
+                    subject=user_subject,
+                    message=user_message,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[booking.email],
+                    fail_silently=True,
+                )
+            except Exception as e:
+                print(f"[EMAIL ERROR] Could not send confirmation email to user: {e}")
             # Store booking ID in session for the success page
             request.session['booking_id'] = booking.id
             return redirect('booking_success')

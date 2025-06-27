@@ -70,14 +70,7 @@
         margin-right: 1rem;
     }
     
-    .pricing-tag {
-        display: inline-block;
-        background-color: rgba(0, 116, 217, 0.1);
-        color: #0074D9;
-        padding: 8px 16px;
-        border-radius: 20px;
-        font-weight: 600;
-    }
+
     
     .feature-list {
         margin: 0;
@@ -152,7 +145,6 @@
                 <h1 class="display-4 fw-bold mb-3">{{ service.name }}</h1>
                 <p class="lead mb-4">Professional and reliable {{ service.name }} services across the UK</p>
                 <div class="d-flex justify-content-center align-items-center flex-wrap gap-3 mb-4">
-                    <span class="pricing-tag">Starting from £{{ service.base_price }}</span>
                     <span class="badge bg-primary">{{ service.category }}</span>
                 </div>
                 <a href="{% url 'book_service' service.id %}" class="btn btn-light btn-lg px-4">Book This Service</a>
@@ -198,6 +190,8 @@
                             <img src="{% static 'images/gardening.jpeg' %}" class="img-fluid rounded" alt="{{ service.name }}">
                         {% elif 'roof' in service.name|lower %}
                             <img src="{% static 'images/roofwork&repair.jpeg' %}" class="img-fluid rounded" alt="{{ service.name }}">
+                        {% elif 'extension' in service.name|lower %}
+                            <img src="{% static 'images/Extensions.jpeg' %}" class="img-fluid rounded" alt="{{ service.name }}">
                         {% elif 'carpent' in service.name|lower or 'wood' in service.name|lower %}
                             <img src="{% static 'images/carpenter.jpeg' %}" class="img-fluid rounded" alt="{{ service.name }}">
                         {% elif 'loft' in service.name|lower or 'conversion' in service.name|lower %}
@@ -275,7 +269,7 @@
                     <ul class="feature-list">
                         <li><i class="fas fa-shield-alt"></i> Vetted & Background-Checked Professionals</li>
                         <li><i class="fas fa-award"></i> Guaranteed Quality Work</li>
-                        <li><i class="fas fa-pound-sign"></i> Transparent Pricing</li>
+                        <li><i class="fas fa-check-circle"></i> Quality Service Guaranteed</li>
                         <li><i class="fas fa-calendar-check"></i> Easy Online Booking</li>
                         <li><i class="fas fa-thumbs-up"></i> 100% Satisfaction Guarantee</li>
                     </ul>

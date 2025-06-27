@@ -219,6 +219,39 @@
             </div>
         </div>
     </div>
+
+    <!-- Gathering & Cleaning Category -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h3 class="border-bottom pb-2 mb-4">Gardening & Cleaning</h3>
+        </div>
+        <!-- Gardening -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="{% static 'images/gardening.jpeg' %}" class="card-img-top" alt="Gardening">
+                <div class="card-body">
+                    <h5 class="card-title">Gardening</h5>
+                    <p class="card-text">Expert gardening services including lawn care, landscaping, and plant maintenance to beautify your outdoor spaces.</p>
+                </div>
+                <div class="card-footer bg-white border-top-0">
+                    <a href="{% url 'book_service' %}" class="btn btn-primary w-100">Request Quote</a>
+                </div>
+            </div>
+        </div>
+        <!-- Cleaning -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="{% static 'images/cleaning.jpeg' %}" class="card-img-top" alt="Cleaning">
+                <div class="card-body">
+                    <h5 class="card-title">Cleaning</h5>
+                    <p class="card-text">Thorough residential and commercial cleaning services, ensuring your space is spotless and hygienic.</p>
+                </div>
+                <div class="card-footer bg-white border-top-0">
+                    <a href="{% url 'book_service' %}" class="btn btn-primary w-100">Request Quote</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Call to Action -->

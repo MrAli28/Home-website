@@ -77,7 +77,7 @@
                             <label for="service" class="form-label">Select Service</label>
                             <select name="service" id="service" class="form-select" required>
                                 {% for service in provider.service_types.all %}
-                                <option value="{{ service.id }}">{{ service.name }} - u00a3{{ service.base_price }}</option>
+                                <option value="{{ service.id }}">{{ service.name }}</option>
                                 {% endfor %}
                             </select>
                         </div>
