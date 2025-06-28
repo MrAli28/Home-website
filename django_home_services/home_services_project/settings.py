@@ -19,6 +19,9 @@ DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 # Allow all hosts for Railway deployment
 ALLOWED_HOSTS = ['*']
 
+# Get PORT from environment variable or use default 8000
+PORT = int(os.environ.get('PORT', 8000))
+
 CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:8000',
     'http://localhost:8000',
